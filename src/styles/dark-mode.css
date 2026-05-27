@@ -73,6 +73,35 @@
     --primary-gradient: linear-gradient(135deg, #C4832B 0%, #E7A04A 100%);
 }
 
+[data-theme="dark"][data-color="arctic"] {
+    --primary-blue: #00D4FF;
+    --primary-blue-dark: #0099CC;
+    --primary-blue-light: #67E8FF;
+    --primary-gradient: linear-gradient(135deg, #0099CC 0%, #00D4FF 100%);
+    --bg-white: #030A14;
+    --bg-light-gray: #060F1C;
+    --bg-medium-gray: #0A1B30;
+    --border-light: #0E2847;
+    --border-medium: #1A4060;
+    --text-primary: #E0F7FF;
+    --text-secondary: #7DCEF0;
+    --text-light: #4AB8E8;
+    --navy-900: #E0F7FF;
+    --navy-800: #BDE8F7;
+    --navy-700: #7DCEF0;
+    --navy-600: #4AB8E8;
+    --navy-500: #1A4060;
+    --navy-400: #0E2847;
+    --navy-300: #0A1B30;
+    --navy-200: #060F1C;
+    --navy-100: #030A14;
+    --navy-50:  #050D1A;
+    --ink-surface: #060F1C;
+    --ink-surface-hover: #0A1B30;
+    --glass-bg: rgba(3, 10, 20, 0.92);
+    --glass-border: rgba(0, 212, 255, 0.12);
+}
+
 [data-theme="dark"] .particle {
     background: rgba(59, 130, 246, 0.25);
 }

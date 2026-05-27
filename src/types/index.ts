@@ -261,7 +261,7 @@ export interface Toast {
 
 // ─── Theme ───
 export type ThemeMode = 'auto' | 'light' | 'dark';
-export type ColorTheme = 'blue' | 'red' | 'green' | 'purple' | 'orange';
+export type ColorTheme = 'blue' | 'red' | 'green' | 'purple' | 'orange' | 'arctic';
 
 // ─── Language ───
 export type Language = 'ko' | 'en';

@@ -16,7 +16,7 @@ const getTimeBasedTheme = (): 'light' | 'dark' => {
   return (hour >= 6 && hour < 18) ? 'light' : 'dark';
 };
 
-const COLOR_THEMES: ColorTheme[] = ['blue', 'red', 'green', 'purple', 'orange'];
+const COLOR_THEMES: ColorTheme[] = ['blue', 'red', 'green', 'purple', 'orange', 'arctic'];
 
 /** cookie 읽기 */
 const getCookie = (name: string): string | null => {

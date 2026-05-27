@@ -152,6 +152,29 @@ html[data-color="orange"] {
     --highlight-gradient: linear-gradient(135deg, #FDCF93 0%, #FDE4BF 50%, #FFFFFF 100%);
 }
 
+/* Arctic Night Sky */
+html[data-color="arctic"] {
+    --primary-blue: #0A1B30;
+    --primary-blue-dark: #060F1C;
+    --primary-blue-light: #00CFFF;
+    --gold: #00CFFF;
+    --navy-900: #030A14;
+    --navy-800: #060F1C;
+    --navy-700: #0A1B30;
+    --navy-600: #0E2847;
+    --navy-500: #1A4060;
+    --navy-400: #2E6E8E;
+    --navy-300: #60B8D4;
+    --navy-200: #A8DFF0;
+    --navy-100: #D4F0FB;
+    --navy-50:  #EDF8FF;
+    --primary-gradient: linear-gradient(135deg, #0A1B30 0%, #00CFFF 100%);
+    --accent-gradient: linear-gradient(135deg, #060F1C 0%, #0A1B30 50%, #00CFFF 100%);
+    --hero-bg: linear-gradient(135deg, #030A14 0%, #060F1C 35%, #0A1B30 65%, #0E2847 100%);
+    --hero-bg-dark: linear-gradient(135deg, #030A14 0%, #050D1A 45%, #071220 100%);
+    --highlight-gradient: linear-gradient(135deg, #60B8D4 0%, #A8DFF0 50%, #FFFFFF 100%);
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;

@@ -48,6 +48,7 @@ const site: SiteConfig = {
     { name: 'red', color: '#C8102E' },
     { name: 'green', color: '#00855A' },
     { name: 'orange', color: '#D4760A' },
+    { name: 'arctic', color: '#00CFFF' },
   ],
 
   menuItems: [
