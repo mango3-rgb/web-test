@@ -11,7 +11,7 @@
       (function() {
         var color = document.cookie.match(/(?:^|; )colorTheme=([^;]+)/);
         var theme = document.cookie.match(/(?:^|; )themeMode=([^;]+)/);
-        var validColors = ['blue','red','green','purple','orange','arctic'];
+        var validColors = ['arctic','autumn'];
         document.documentElement.setAttribute('data-color', color && validColors.includes(color[1]) ? color[1] : 'arctic');
         var mode = theme ? theme[1] : 'dark';
         if (mode === 'auto') {

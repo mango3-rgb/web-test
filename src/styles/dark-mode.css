@@ -73,6 +73,13 @@
     --primary-gradient: linear-gradient(135deg, #C4832B 0%, #E7A04A 100%);
 }
 
+[data-theme="dark"][data-color="autumn"] {
+    --primary-blue: #E8880A;
+    --primary-blue-dark: #C4600A;
+    --primary-blue-light: #FDCF80;
+    --primary-gradient: linear-gradient(135deg, #C4600A 0%, #E8880A 100%);
+}
+
 [data-theme="dark"][data-color="arctic"] {
     --primary-blue: #00D4FF;
     --primary-blue-dark: #0099CC;

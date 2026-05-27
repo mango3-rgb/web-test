@@ -43,12 +43,8 @@ const site: SiteConfig = {
   },
 
   colors: [
-    { name: 'blue', color: '#1B2A4A' },
-    { name: 'purple', color: '#5B2C8B' },
-    { name: 'red', color: '#C8102E' },
-    { name: 'green', color: '#00855A' },
-    { name: 'orange', color: '#D4760A' },
     { name: 'arctic', color: '#00CFFF' },
+    { name: 'autumn', color: '#D4960A' },
   ],
 
   menuItems: [
@@ -88,8 +84,7 @@ const site: SiteConfig = {
       dropdown: [
         { path: '/mbti', labelKey: 'site.nav.mbtiTypes' },
         { path: '/mbti/compatibility', labelKey: 'site.nav.mbtiCompatibility' },
-        { path: '/mbti/test', labelKey: 'site.nav.mbtiTest' },
-        { path: '/mbti/enneagram-test', labelKey: 'site.nav.enneagramTest' },
+        { path: '/mbti/enneagram-test', labelKey: 'site.nav.comboTest' },
         { path: '/mbti/enneagram', labelKey: 'site.nav.mbtiEnneagram' },
       ]
     },

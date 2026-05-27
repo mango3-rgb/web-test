@@ -212,7 +212,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         horoscope: '별자리',
         horoscopeSign: '12 별자리',
         horoscopeCompatibility: '별자리 궁합',
-        mbti: 'MBTI',
+        mbti: '성격진단',
         mbtiTypes: '16가지 유형',
         mbtiCompatibility: 'MBTI 궁합',
         mbtiTest: 'MBTI 테스트',
@@ -225,6 +225,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         fortuneReading: '운세 보기',
         taro: '타로카드',
         enneagramTest: '에니어그램 테스트',
+        comboTest: '통합 성격 테스트',
         mbtiEnneagram: 'MBTI+에니어그램'
       },
       home: {

@@ -146,29 +146,33 @@ const Navbar = (): ReactElement => {
                 <button
                   className="color-picker-btn"
                   onClick={() => setShowColorPicker(!showColorPicker)}
-                  aria-label="Color theme"
+                  aria-label="테마 선택"
+                  title="테마 변경"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="13.5" cy="6.5" r="2.5" style={{ fill: '#C8102E', stroke: 'none' }} />
-                    <circle cx="17.5" cy="10.5" r="2.5" style={{ fill: '#C87200', stroke: 'none' }} />
-                    <circle cx="8.5" cy="7.5" r="2.5" style={{ fill: '#00855A', stroke: 'none' }} />
-                    <circle cx="6.5" cy="12" r="2.5" style={{ fill: '#1B2A4A', stroke: 'none' }} />
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.04-.24-.3-.39-.65-.39-1.04 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.17-4.5-9-10-9z" />
-                  </svg>
+                  {colorTheme === 'arctic' ? '🌌' : '🍂'}
                 </button>
                 {showColorPicker && (
                   <>
                     <div className="color-picker-overlay" onClick={() => setShowColorPicker(false)} />
-                    <div className="color-picker-tooltip">
+                    <div className="theme-picker-tooltip">
                       <div className="color-picker-arrow" />
-                      {site.colors.map((c) => (
+                      <div className="theme-picker-label">테마 선택</div>
+                      {[
+                        { name: 'arctic' as const, icon: '🌌', label: '북극 밤하늘', desc: '차갑고 신비로운 심우주' },
+                        { name: 'autumn' as const, icon: '🍂', label: '가을 굿판', desc: '전통의 불꽃과 대지의 숨결' },
+                      ].map((t) => (
                         <button
-                          key={c.name}
-                          className={`color-dot${colorTheme === c.name ? ' active' : ''}`}
-                          style={{ background: c.color }}
-                          onClick={() => { setColorTheme(c.name); setShowColorPicker(false); }}
-                          aria-label={`${c.name} theme`}
-                        />
+                          key={t.name}
+                          className={`theme-card${colorTheme === t.name ? ' active' : ''}`}
+                          onClick={() => { setColorTheme(t.name); setShowColorPicker(false); }}
+                        >
+                          <span className="theme-card-icon">{t.icon}</span>
+                          <span className="theme-card-info">
+                            <span className="theme-card-name">{t.label}</span>
+                            <span className="theme-card-desc">{t.desc}</span>
+                          </span>
+                          {colorTheme === t.name && <span className="theme-card-check">✓</span>}
+                        </button>
                       ))}
                     </div>
                   </>

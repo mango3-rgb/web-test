@@ -152,6 +152,51 @@ html[data-color="orange"] {
     --highlight-gradient: linear-gradient(135deg, #FDCF93 0%, #FDE4BF 50%, #FFFFFF 100%);
 }
 
+/* Autumn Ritual — 가을 굿판 */
+html[data-color="autumn"] {
+    --primary-blue: #C4600A;
+    --primary-blue-dark: #8A3E06;
+    --primary-blue-light: #E8880A;
+    --gold: #D4960A;
+    --navy-900: #F5E8CC;
+    --navy-800: #E8C890;
+    --navy-700: #C8A060;
+    --navy-600: #A07030;
+    --navy-500: #6A4520;
+    --navy-400: #3A2010;
+    --navy-300: #261506;
+    --navy-200: #1E1006;
+    --navy-100: #150C04;
+    --navy-50:  #120B04;
+    --bg-white: #120B04;
+    --bg-light-gray: #1E1006;
+    --bg-medium-gray: #2A1508;
+    --bg-primary: #120B04;
+    --text-primary: #F0D4A0;
+    --text-secondary: #B07840;
+    --text-light: #806030;
+    --border-light: #2A1508;
+    --border-medium: #3A2010;
+    --border-color: #2A1508;
+    --ink: #F0D4A0;
+    --ink-soft: #B07840;
+    --ink-surface: #120B04;
+    --ink-surface-hover: #1E1006;
+    --line: #2A1508;
+    --line-strong: #3A2010;
+    --shadow-sm: 0 1px 3px rgba(196, 96, 10, 0.08);
+    --shadow-md: 0 4px 6px rgba(196, 96, 10, 0.08), 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px rgba(196, 96, 10, 0.1), 0 4px 10px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 40px rgba(196, 96, 10, 0.12), 0 8px 16px rgba(0, 0, 0, 0.6);
+    --glass-bg: rgba(18, 11, 4, 0.92);
+    --glass-border: rgba(212, 150, 10, 0.15);
+    --primary-gradient: linear-gradient(135deg, #8A3E06 0%, #E8880A 100%);
+    --accent-gradient: linear-gradient(135deg, #120B04 0%, #3A2010 50%, #D4960A 100%);
+    --hero-bg: linear-gradient(135deg, #120B04 0%, #1E1006 35%, #2A1508 65%, #3A2010 100%);
+    --hero-bg-dark: linear-gradient(135deg, #0A0702 0%, #120B04 45%, #1A0E05 100%);
+    --highlight-gradient: linear-gradient(135deg, #C8A060 0%, #E8C890 50%, #F5E8CC 100%);
+}
+
 /* Arctic Night Sky */
 html[data-color="arctic"] {
     --primary-blue: #00CFFF;

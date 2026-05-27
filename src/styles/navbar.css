@@ -288,6 +288,8 @@
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-base);
+    font-size: 16px;
+    line-height: 1;
 }
 
 .color-picker-btn:hover {
@@ -351,14 +353,97 @@
     outline: none;
 }
 
-.color-dot:hover {
-    transform: scale(1.2);
-}
+.color-dot:hover { transform: scale(1.2); }
 
 .color-dot.active {
     border-color: var(--text-primary);
     box-shadow: 0 0 0 2px var(--bg-white), 0 0 0 4px var(--text-primary);
     transform: scale(1.1);
+}
+
+/* Theme Picker */
+.theme-picker-tooltip {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 999;
+    width: 220px;
+    padding: 12px;
+    background: var(--bg-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    animation: tooltip-fade-in 0.2s ease;
+}
+
+.theme-picker-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.theme-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, border-color 0.15s;
+    font-family: inherit;
+    margin-bottom: 4px;
+}
+
+.theme-card:last-child { margin-bottom: 0; }
+
+.theme-card:hover {
+    background: var(--bg-light-gray);
+    border-color: var(--line);
+}
+
+.theme-card.active {
+    background: var(--bg-medium-gray);
+    border-color: var(--gold);
+}
+
+.theme-card-icon { font-size: 20px; flex-shrink: 0; }
+
+.theme-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.theme-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.theme-card-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.theme-card-check {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
 .mobile-toggle {
