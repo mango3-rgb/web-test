@@ -36,7 +36,7 @@ jobs:
           VITE_PORTONE_CHANNEL_KEY: ${{ secrets.VITE_PORTONE_CHANNEL_KEY }}
           VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
           VITE_KAKAO_CLIENT_ID: ${{ secrets.VITE_KAKAO_CLIENT_ID }}
-          VITE_SITE_URL: https://mango3-rgb.github.io/web-test
+          VITE_SITE_URL: https://kdn.dreamitbiz.com
         run: npm run build
 
       - uses: actions/configure-pages@v5
