@@ -52,6 +52,11 @@ const site: SiteConfig = {
 
   menuItems: [
     {
+      labelKey: 'site.nav.fortune',
+      path: '/fortune',
+      activePath: '/fortune',
+    },
+    {
       labelKey: 'site.nav.saju',
       path: '/saju',
       activePath: '/saju',
@@ -88,11 +93,6 @@ const site: SiteConfig = {
         { path: '/board/inquiry', labelKey: 'site.nav.boardInquiry' },
         { path: '/board/discussion', labelKey: 'site.nav.boardDiscussion' },
       ]
-    },
-    {
-      labelKey: 'site.nav.fortune',
-      path: '/fortune',
-      activePath: '/fortune',
     },
   ],
 

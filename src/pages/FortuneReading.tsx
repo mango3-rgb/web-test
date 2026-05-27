@@ -4,20 +4,23 @@ import type { ReactElement } from 'react';
 
 type Energy = { money: number; love: number; career: number; health: number };
 
-const JIJI: { id: string; name: string; years: string; trait: string; e: Energy }[] = [
-  { id: 'ja',   name: '子 쥐',    years: '1960·1972·1984·1996·2008·2020', trait: '영리하고 적응력이 뛰어난', e: { money: 2, love: 1, career: 1, health: 1 } },
-  { id: 'ch',   name: '丑 소',    years: '1961·1973·1985·1997·2009·2021', trait: '인내심 강하고 성실한',     e: { money: 1, love: 1, career: 2, health: 2 } },
-  { id: 'in',   name: '寅 호랑이', years: '1962·1974·1986·1998·2010·2022', trait: '용감하고 패기 넘치는',    e: { money: 1, love: 1, career: 2, health: 2 } },
-  { id: 'myo',  name: '卯 토끼',  years: '1963·1975·1987·1999·2011·2023', trait: '섬세하고 온화한',         e: { money: 1, love: 2, career: 1, health: 2 } },
-  { id: 'jin',  name: '辰 용',    years: '1964·1976·1988·2000·2012·2024', trait: '카리스마 넘치는',          e: { money: 2, love: 1, career: 2, health: 1 } },
-  { id: 'sa',   name: '巳 뱀',    years: '1965·1977·1989·2001·2013·2025', trait: '직관이 날카롭고 신비로운',  e: { money: 2, love: 1, career: 1, health: 1 } },
-  { id: 'o',    name: '午 말',    years: '1966·1978·1990·2002·2014',      trait: '활발하고 정열적인',         e: { money: 1, love: 2, career: 1, health: 2 } },
-  { id: 'mi',   name: '未 양',    years: '1967·1979·1991·2003·2015',      trait: '예술적 감수성이 풍부한',    e: { money: 1, love: 2, career: 1, health: 2 } },
-  { id: 'sin',  name: '申 원숭이', years: '1968·1980·1992·2004·2016',      trait: '재치 있고 영리한',          e: { money: 2, love: 1, career: 2, health: 1 } },
-  { id: 'yu',   name: '酉 닭',    years: '1969·1981·1993·2005·2017',      trait: '꼼꼼하고 부지런한',         e: { money: 1, love: 1, career: 2, health: 2 } },
-  { id: 'sul',  name: '戌 개',    years: '1970·1982·1994·2006·2018',      trait: '의리 있고 충직한',           e: { money: 1, love: 2, career: 1, health: 2 } },
-  { id: 'hae',  name: '亥 돼지',  years: '1971·1983·1995·2007·2019',      trait: '낙천적이고 풍요로운',        e: { money: 2, love: 2, career: 1, health: 1 } },
+const JIJI: { id: string; name: string; animal: string; trait: string; e: Energy }[] = [
+  { id: 'ja',   name: '子',  animal: '🐭 쥐',    trait: '영리하고 적응력이 뛰어난', e: { money: 2, love: 1, career: 1, health: 1 } },
+  { id: 'ch',   name: '丑',  animal: '🐮 소',    trait: '인내심 강하고 성실한',     e: { money: 1, love: 1, career: 2, health: 2 } },
+  { id: 'in',   name: '寅',  animal: '🐯 호랑이', trait: '용감하고 패기 넘치는',    e: { money: 1, love: 1, career: 2, health: 2 } },
+  { id: 'myo',  name: '卯',  animal: '🐰 토끼',  trait: '섬세하고 온화한',         e: { money: 1, love: 2, career: 1, health: 2 } },
+  { id: 'jin',  name: '辰',  animal: '🐲 용',    trait: '카리스마 넘치는',          e: { money: 2, love: 1, career: 2, health: 1 } },
+  { id: 'sa',   name: '巳',  animal: '🐍 뱀',    trait: '직관이 날카롭고 신비로운',  e: { money: 2, love: 1, career: 1, health: 1 } },
+  { id: 'o',    name: '午',  animal: '🐴 말',    trait: '활발하고 정열적인',         e: { money: 1, love: 2, career: 1, health: 2 } },
+  { id: 'mi',   name: '未',  animal: '🐑 양',    trait: '예술적 감수성이 풍부한',    e: { money: 1, love: 2, career: 1, health: 2 } },
+  { id: 'sin',  name: '申',  animal: '🐵 원숭이', trait: '재치 있고 영리한',          e: { money: 2, love: 1, career: 2, health: 1 } },
+  { id: 'yu',   name: '酉',  animal: '🐔 닭',    trait: '꼼꼼하고 부지런한',         e: { money: 1, love: 1, career: 2, health: 2 } },
+  { id: 'sul',  name: '戌',  animal: '🐶 개',    trait: '의리 있고 충직한',           e: { money: 1, love: 2, career: 1, health: 2 } },
+  { id: 'hae',  name: '亥',  animal: '🐷 돼지',  trait: '낙천적이고 풍요로운',        e: { money: 2, love: 2, career: 1, health: 1 } },
 ];
+
+/* 태어난 해 → 띠 인덱스: 2020(子)%12=4 기준 */
+const yearToJiji = (year: number) => JIJI[(((year % 12) - 4 + 12) % 12)];
 
 const SIGNS: { id: string; symbol: string; name: string; dates: string; trait: string; e: Energy }[] = [
   { id: 'aries',  symbol: '♈', name: '양자리',    dates: '3.21~4.19',   trait: '열정적이고 개척적인',   e: { money: 1, love: 1, career: 2, health: 2 } },
@@ -99,11 +102,8 @@ interface FortuneResult {
   jiji: typeof JIJI[0];
   sign: typeof SIGNS[0];
   mbti: typeof MBTI_LIST[0];
-  money: number;
-  love: number;
-  career: number;
-  health: number;
-  total: number;
+  birthYear: number;
+  money: number; love: number; career: number; health: number; total: number;
 }
 
 const Stars = ({ count }: { count: number }) => (
@@ -123,37 +123,55 @@ const AREAS = [
 
 type AreaKey = 'money' | 'love' | 'career' | 'health';
 
+const selectStyle = {
+  padding: '10px 14px',
+  border: '1px solid var(--line)',
+  borderRadius: '10px',
+  fontSize: '14px',
+  fontWeight: 600,
+  color: 'var(--navy-800)',
+  background: 'var(--bg-white)',
+  cursor: 'pointer',
+  fontFamily: 'inherit',
+  outline: 'none',
+  flex: 1,
+  minWidth: 0,
+  width: '100%',
+} as const;
+
+const labelStyle = {
+  display: 'block',
+  fontSize: '11px',
+  fontWeight: 700,
+  color: 'var(--gold)',
+  letterSpacing: '0.1em',
+  marginBottom: '6px',
+} as const;
+
 const FortuneReading = (): ReactElement => {
-  const [sel, setSel] = useState({ jiji: '', sign: '', mbti: '' });
+  const [birthYear, setBirthYear] = useState('');
+  const [sign, setSign] = useState('');
+  const [mbti, setMbti] = useState('');
   const [result, setResult] = useState<FortuneResult | null>(null);
 
-  const canSubmit = sel.jiji && sel.sign && sel.mbti;
+  const yearNum = parseInt(birthYear, 10);
+  const validYear = birthYear.length === 4 && !isNaN(yearNum) && yearNum >= 1900 && yearNum <= 2099;
+  const jijiObj = validYear ? yearToJiji(yearNum) : null;
+  const canSubmit = validYear && sign && mbti;
 
   const handleSubmit = () => {
-    const j = JIJI.find(x => x.id === sel.jiji)!;
-    const s = SIGNS.find(x => x.id === sel.sign)!;
-    const m = MBTI_LIST.find(x => x.id === sel.mbti)!;
-    const money = j.e.money + s.e.money + m.e.money;
-    const love = j.e.love + s.e.love + m.e.love;
+    if (!jijiObj) return;
+    const j = jijiObj;
+    const s = SIGNS.find(x => x.id === sign)!;
+    const m = MBTI_LIST.find(x => x.id === mbti)!;
+    const money  = j.e.money  + s.e.money  + m.e.money;
+    const love   = j.e.love   + s.e.love   + m.e.love;
     const career = j.e.career + s.e.career + m.e.career;
     const health = j.e.health + s.e.health + m.e.health;
-    setResult({ jiji: j, sign: s, mbti: m, money, love, career, health, total: money + love + career + health });
+    setResult({ jiji: j, sign: s, mbti: m, birthYear: yearNum, money, love, career, health, total: money + love + career + health });
   };
 
-  const selectStyle = {
-    padding: '10px 14px',
-    border: '1px solid var(--line)',
-    borderRadius: '10px',
-    fontSize: '14px',
-    fontWeight: 600,
-    color: 'var(--navy-800)',
-    background: 'var(--bg-white)',
-    cursor: 'pointer',
-    fontFamily: 'inherit',
-    outline: 'none',
-    flex: 1,
-    minWidth: 0,
-  };
+  const reset = () => { setResult(null); setBirthYear(''); setSign(''); setMbti(''); };
 
   return (
     <>
@@ -170,40 +188,36 @@ const FortuneReading = (): ReactElement => {
         <div className="container" style={{ maxWidth: '860px', margin: '0 auto' }}>
 
           {!result ? (
-            /* ── Input Form ── */
             <div>
               <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.7, textAlign: 'center' }}>
-                세 가지 정보를 선택하면 사주·별자리·MBTI가 어우러진 나만의 종합 운세를 확인할 수 있습니다.
+                세 가지 정보를 입력하면 사주·별자리·MBTI가 어우러진 나만의 종합 운세를 확인할 수 있습니다.
               </p>
 
               <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
-                {/* 띠 */}
+
+                {/* 생년 입력 → 자동 띠 계산 */}
                 <div style={{ flex: '1 1 200px', minWidth: 0 }}>
-                  <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '6px' }}>
-                    띠 (지지)
-                  </label>
-                  <select
-                    value={sel.jiji}
-                    onChange={e => setSel(p => ({ ...p, jiji: e.target.value }))}
-                    style={selectStyle}
-                  >
-                    <option value="">띠 선택</option>
-                    {JIJI.map(j => (
-                      <option key={j.id} value={j.id}>{j.name} — {j.years}</option>
-                    ))}
-                  </select>
+                  <label style={labelStyle}>생년 (태어난 해)</label>
+                  <input
+                    type="number"
+                    value={birthYear}
+                    onChange={e => setBirthYear(e.target.value.slice(0, 4))}
+                    placeholder="예) 1990"
+                    min={1900}
+                    max={2099}
+                    style={{ ...selectStyle, appearance: 'textfield' as const }}
+                  />
+                  {birthYear.length === 4 && (
+                    <div style={{ marginTop: '6px', fontSize: '13px', fontWeight: 700, color: validYear ? 'var(--gold)' : '#e55', padding: '4px 10px', background: 'var(--navy-50)', borderRadius: '6px', display: 'inline-block' }}>
+                      {validYear && jijiObj ? `${jijiObj.name}년 ${jijiObj.animal}띠` : '유효하지 않은 연도'}
+                    </div>
+                  )}
                 </div>
 
                 {/* 별자리 */}
                 <div style={{ flex: '1 1 180px', minWidth: 0 }}>
-                  <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '6px' }}>
-                    별자리
-                  </label>
-                  <select
-                    value={sel.sign}
-                    onChange={e => setSel(p => ({ ...p, sign: e.target.value }))}
-                    style={selectStyle}
-                  >
+                  <label style={labelStyle}>별자리</label>
+                  <select value={sign} onChange={e => setSign(e.target.value)} style={selectStyle}>
                     <option value="">별자리 선택</option>
                     {SIGNS.map(s => (
                       <option key={s.id} value={s.id}>{s.symbol} {s.name} ({s.dates})</option>
@@ -213,14 +227,8 @@ const FortuneReading = (): ReactElement => {
 
                 {/* MBTI */}
                 <div style={{ flex: '1 1 160px', minWidth: 0 }}>
-                  <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '6px' }}>
-                    MBTI
-                  </label>
-                  <select
-                    value={sel.mbti}
-                    onChange={e => setSel(p => ({ ...p, mbti: e.target.value }))}
-                    style={selectStyle}
-                  >
+                  <label style={labelStyle}>MBTI</label>
+                  <select value={mbti} onChange={e => setMbti(e.target.value)} style={selectStyle}>
                     <option value="">MBTI 선택</option>
                     {MBTI_LIST.map(m => (
                       <option key={m.id} value={m.id}>{m.id} ({m.nick})</option>
@@ -242,12 +250,11 @@ const FortuneReading = (): ReactElement => {
             </div>
 
           ) : (
-            /* ── Result ── */
             <div>
               {/* Input summary */}
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
                 {[
-                  result.jiji.name,
+                  `${result.birthYear}년 ${result.jiji.name}${result.jiji.animal}띠`,
                   `${result.sign.symbol} ${result.sign.name}`,
                   `${result.mbti.id} (${result.mbti.nick})`,
                 ].map((label) => (
@@ -279,19 +286,14 @@ const FortuneReading = (): ReactElement => {
 
               {/* Narrative */}
               <div style={{ padding: '16px 20px', background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', borderRadius: '0 10px 10px 0', marginBottom: '20px', fontSize: '13px', lineHeight: 1.75, color: 'var(--navy-800)' }}>
-                <strong>{result.jiji.trait}</strong> {result.jiji.name}띠가{' '}
+                <strong>{result.jiji.trait}</strong> {result.jiji.animal}띠가{' '}
                 <strong>{result.sign.trait}</strong> {result.sign.name}의 에너지를 만나고,{' '}
                 {result.mbti.id}({result.mbti.nick})의 성격이 더해져 독특한 운의 흐름을 만들어냅니다.{' '}
                 {OVERALL_TEXT[Math.min(4, Math.floor(result.total / 5))]}
               </div>
 
               <div style={{ textAlign: 'center' }}>
-                <button
-                  className="btn btn-ghost"
-                  onClick={() => { setResult(null); setSel({ jiji: '', sign: '', mbti: '' }); }}
-                >
-                  다시 측정하기
-                </button>
+                <button className="btn btn-ghost" onClick={reset}>다시 측정하기</button>
               </div>
             </div>
           )}
