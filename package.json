@@ -1,6 +1,6 @@
 {
   "name": "kdn-vibe-coding",
-"private": true,
+  "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
