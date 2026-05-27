@@ -42,7 +42,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): ReactElement =>
   const [mode, setMode] = useState<ThemeMode>(() => {
     const saved = getCookie('themeMode');
     if (saved === 'light' || saved === 'dark' || saved === 'auto') return saved;
-    return 'auto';
+    return 'dark';
   });
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {

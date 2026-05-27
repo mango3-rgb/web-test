@@ -1,12 +1,26 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-color="arctic" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/web-test/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="사주팔자, 별자리, MBTI, 타로카드로 당신의 운명과 성격을 깊이 탐구합니다." />
     <meta name="author" content="Suyoung's Secret" />
-    <meta name="theme-color" content="#1B2A4A" />
+    <meta name="theme-color" content="#060F1C" />
+    <script>
+      (function() {
+        var color = document.cookie.match(/(?:^|; )colorTheme=([^;]+)/);
+        var theme = document.cookie.match(/(?:^|; )themeMode=([^;]+)/);
+        var validColors = ['blue','red','green','purple','orange','arctic'];
+        document.documentElement.setAttribute('data-color', color && validColors.includes(color[1]) ? color[1] : 'arctic');
+        var mode = theme ? theme[1] : 'dark';
+        if (mode === 'auto') {
+          var h = new Date().getHours();
+          mode = (h >= 6 && h < 18) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', mode === 'light' ? 'light' : 'dark');
+      })();
+    </script>
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://mango3-rgb.github.io/web-test/" />
     <meta property="og:url" content="https://mango3-rgb.github.io/web-test" />
@@ -27,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script type="module" crossorigin src="/web-test/assets/index-CElVM8zn.js"></script>
+    <script type="module" crossorigin src="/web-test/assets/index-5dQp0U0E.js"></script>
     <link rel="stylesheet" crossorigin href="/web-test/assets/index-jRSBZdMh.css">
   </head>
   <body>
