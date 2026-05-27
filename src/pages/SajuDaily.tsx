@@ -6,6 +6,7 @@ import {
   areaStars, areaText, overviewText, totalStars,
 } from '../utils/fortuneEngine';
 import type { Period } from '../utils/fortuneEngine';
+import { useFortunePool } from '../hooks/useFortunePool';
 
 const GAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 const GAN_KO = ['갑','을','병','정','무','기','경','신','임','계'];
@@ -112,6 +113,7 @@ const labelSt = {
 } as const;
 
 const SajuDaily = (): ReactElement => {
+  const pool = useFortunePool();
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
@@ -259,13 +261,13 @@ const SajuDaily = (): ReactElement => {
                               <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period, pool, baseKey)}</p>
                           </div>
                         );
                       })}
                     </div>
                     <div style={{ padding: '10px 14px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', fontSize: '13px', color: 'var(--navy-800)' }}>
-                      {overviewText(period, total)}
+                      {overviewText(period, total, pool, baseKey)}
                     </div>
                   </>
                 );
@@ -294,7 +296,7 @@ const SajuDaily = (): ReactElement => {
                               <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period, pool, baseKey)}</p>
                           </div>
                         );
                       })}

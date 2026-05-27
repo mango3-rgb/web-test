@@ -1,4 +1,5 @@
 export type Period = 'daily' | 'monthly' | 'yearly' | 'early' | 'middle' | 'late';
+export type { TextPool } from './fortuneDB';
 export type FArea = 'money' | 'love' | 'career' | 'health';
 
 export const PERIOD_LABELS: Record<Period, string> = {
@@ -28,6 +29,12 @@ const dateSeed = (p: Period): string => {
   if (p === 'monthly') return `${d.getFullYear()}-${d.getMonth() + 1}`;
   if (p === 'yearly')  return `${d.getFullYear()}`;
   return p;
+};
+
+/** 날짜 + 생년 복합 시드 → pool 인덱스 결정 */
+const pickIdx = (p: Period, birthKey: string, poolSize: number): number => {
+  const combined = (djb2(dateSeed(p)) ^ djb2(birthKey)) >>> 0;
+  return combined % poolSize;
 };
 
 /** 2~5 stars, deterministic */
@@ -193,7 +200,19 @@ const TEXTS: Record<FArea, Record<Period, Record<number, string>>> = {
   },
 };
 
-export const areaText = (a: FArea, stars: number, p: Period): string => TEXTS[a][p][stars];
+export const areaText = (
+  a: FArea,
+  stars: number,
+  p: Period,
+  pool?: import('./fortuneDB').TextPool,
+  birthKey?: string,
+): string => {
+  if (pool && birthKey) {
+    const texts = pool.get(`${a}-${p}-${stars}`);
+    if (texts && texts.length > 0) return texts[pickIdx(p, birthKey, texts.length)];
+  }
+  return TEXTS[a][p][stars];
+};
 
 /* ── Overview sentences for time periods ── */
 const OVR: Record<string, string[]> = {
@@ -220,8 +239,18 @@ const OVR: Record<string, string[]> = {
   ],
 };
 
-export const overviewText = (p: Period, total: number): string => {
+export const overviewText = (
+  p: Period,
+  total: number,
+  pool?: import('./fortuneDB').TextPool,
+  birthKey?: string,
+): string => {
+  const idx = Math.min(4, Math.max(0, total - 8));
+  if (pool && birthKey) {
+    const texts = pool.get(`overview-${p}-${idx}`);
+    if (texts && texts.length > 0) return texts[pickIdx(p, birthKey, texts.length)];
+  }
   const arr = OVR[p];
   if (!arr) return '';
-  return arr[Math.min(4, Math.max(0, total - 8))];
+  return arr[idx];
 };

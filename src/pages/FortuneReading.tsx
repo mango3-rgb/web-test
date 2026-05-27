@@ -6,6 +6,7 @@ import {
   areaStars, areaText, overviewText, totalStars,
 } from '../utils/fortuneEngine';
 import type { Period } from '../utils/fortuneEngine';
+import { useFortunePool } from '../hooks/useFortunePool';
 
 type Energy = { money: number; love: number; career: number; health: number };
 
@@ -124,6 +125,7 @@ const JIJI_LIFE: Record<string, { early: string; middle: string; late: string }>
 };
 
 const FortuneReading = (): ReactElement => {
+  const pool = useFortunePool();
   const [birthYear, setBirthYear] = useState('');
   const [sign, setSign] = useState('');
   const [mbti, setMbti] = useState('');
@@ -261,13 +263,13 @@ const FortuneReading = (): ReactElement => {
                               <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars count={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period, pool, baseKey)}</p>
                           </div>
                         );
                       })}
                     </div>
                     <div style={{ padding: '10px 16px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', marginBottom: '14px', fontSize: '13px', color: 'var(--navy-800)' }}>
-                      {overviewText(period, total)}
+                      {overviewText(period, total, pool, baseKey)}
                     </div>
                   </>
                 );
@@ -295,7 +297,7 @@ const FortuneReading = (): ReactElement => {
                               <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars count={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period, pool, baseKey)}</p>
                           </div>
                         );
                       })}

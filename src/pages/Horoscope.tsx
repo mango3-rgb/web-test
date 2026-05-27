@@ -7,6 +7,7 @@ import {
   areaStars, areaText, overviewText, totalStars,
 } from '../utils/fortuneEngine';
 import type { Period } from '../utils/fortuneEngine';
+import { useFortunePool } from '../hooks/useFortunePool';
 
 const SIGNS = [
   { id: 'aries',  symbol: '♈', name: '양자리',    dates: '3.21~4.19',   trait: '열정적이고 개척적인',
@@ -48,6 +49,7 @@ const tabSt = (active: boolean): React.CSSProperties => ({
 });
 
 const Horoscope = (): ReactElement => {
+  const pool = useFortunePool();
   const [sel, setSel] = useState<string | null>(null);
   const [period, setPeriod] = useState<Period>('daily');
   const sign = SIGNS.find(s => s.id === sel);
@@ -113,13 +115,13 @@ const Horoscope = (): ReactElement => {
                               <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period, pool, sign.id)}</p>
                           </div>
                         );
                       })}
                     </div>
                     <div style={{ padding: '10px 14px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', fontSize: '13px', color: 'var(--navy-800)' }}>
-                      {overviewText(period, total)}
+                      {overviewText(period, total, pool, sign.id)}
                     </div>
                   </>
                 );
@@ -142,7 +144,7 @@ const Horoscope = (): ReactElement => {
                               <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period)}</p>
+                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period, pool, sign.id)}</p>
                           </div>
                         );
                       })}
