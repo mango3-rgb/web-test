@@ -14,6 +14,8 @@ import Mbti from '../pages/Mbti';
 import MbtiCompatibility from '../pages/MbtiCompatibility';
 import About from '../pages/About';
 import Consult from '../pages/Consult';
+import InquiryBoard from '../pages/InquiryBoard';
+import DiscussionBoard from '../pages/DiscussionBoard';
 
 const PublicLayout = (): ReactElement => (
   <>
@@ -34,6 +36,9 @@ const PublicLayout = (): ReactElement => (
 
         <Route path="/about" element={<About />} />
         <Route path="/about/consult" element={<Consult />} />
+
+        <Route path="/board/inquiry" element={<InquiryBoard />} />
+        <Route path="/board/discussion" element={<DiscussionBoard />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

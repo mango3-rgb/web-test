@@ -216,7 +216,10 @@ export const translations: Record<string, Record<string, unknown>> = {
         mbtiTypes: '16가지 유형',
         mbtiCompatibility: 'MBTI 궁합',
         aboutMe: '황수영 소개',
-        aboutConsult: '상담 안내'
+        aboutConsult: '상담 안내',
+        board: '게시판',
+        boardInquiry: '문의 게시판',
+        boardDiscussion: '토론 게시판'
       },
       home: {
         title: 'KDN Vibe Coding',
@@ -443,7 +446,10 @@ export const translations: Record<string, Record<string, unknown>> = {
         mbtiTypes: '16 Types',
         mbtiCompatibility: 'MBTI Match',
         aboutMe: 'About Me',
-        aboutConsult: 'Consultation'
+        aboutConsult: 'Consultation',
+        board: 'Board',
+        boardInquiry: 'Inquiry',
+        boardDiscussion: 'Discussion'
       },
       home: {
         title: 'KDN Vibe Coding',

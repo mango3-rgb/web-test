@@ -88,6 +88,15 @@ const site: SiteConfig = {
         { path: '/about/consult', labelKey: 'site.nav.aboutConsult' },
       ]
     },
+    {
+      labelKey: 'site.nav.board',
+      path: '/board/inquiry',
+      activePath: '/board',
+      dropdown: [
+        { path: '/board/inquiry', labelKey: 'site.nav.boardInquiry' },
+        { path: '/board/discussion', labelKey: 'site.nav.boardDiscussion' },
+      ]
+    },
   ],
 
   footerLinks: [
