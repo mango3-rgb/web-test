@@ -113,7 +113,7 @@ const Horoscope = (): ReactElement => {
                               <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s)}</p>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s, period)}</p>
                           </div>
                         );
                       })}
@@ -142,7 +142,7 @@ const Horoscope = (): ReactElement => {
                               <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>{label}</span>
                               <span style={{ marginLeft: 'auto' }}><Stars n={s} /></span>
                             </div>
-                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s)}</p>
+                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s, period)}</p>
                           </div>
                         );
                       })}

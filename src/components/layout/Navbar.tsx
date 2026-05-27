@@ -23,7 +23,7 @@ const Navbar = (): ReactElement => {
   const userMenuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { mode, toggleTheme, colorTheme, setColorTheme } = useTheme();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const { cartCount } = useCart();
   const { isLoggedIn, isAdmin, profile, signOut } = useAuth();
 
@@ -72,20 +72,6 @@ const Navbar = (): ReactElement => {
 
   return (
     <>
-      {/* TopBar */}
-      <div className="topbar">
-        <div className="container">
-          <div className="topbar-left">
-            <span className="topbar-tag">사주·별자리·MBTI 운세 플랫폼</span>
-            <span className="topbar-tag topbar-tag-extra">사주 · 별자리 · MBTI</span>
-          </div>
-          <div className="topbar-right">
-            <button onClick={toggleLanguage}>{language === 'ko' ? 'KR / EN' : 'EN / KR'}</button>
-            <span>{site.company.phone}</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Nav */}
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container">
