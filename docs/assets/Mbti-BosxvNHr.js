@@ -1,4 +1,4 @@
-import{j as e,L as n}from"./index-CuZqqhp3.js";import{S as s}from"./SEOHead-eU0vz81c.js";const t=[{label:"E / I",desc:`에너지 방향
+import{j as e,L as n}from"./index-Bgfwb1OM.js";import{S as s}from"./SEOHead-BrnFRG7m.js";const t=[{label:"E / I",desc:`에너지 방향
 외향(Extraversion)
 내향(Introversion)`},{label:"S / N",desc:`정보 수집
 감각(Sensing)
