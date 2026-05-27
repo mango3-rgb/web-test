@@ -84,8 +84,9 @@ const site: SiteConfig = {
       dropdown: [
         { path: '/mbti', labelKey: 'site.nav.mbtiTypes' },
         { path: '/mbti/compatibility', labelKey: 'site.nav.mbtiCompatibility' },
-        { path: '/mbti/enneagram-test', labelKey: 'site.nav.comboTest' },
-        { path: '/mbti/enneagram', labelKey: 'site.nav.mbtiEnneagram' },
+        { path: '/mbti/test', labelKey: 'site.nav.mbtiTest' },
+        { path: '/mbti/enneagram-test', labelKey: 'site.nav.enneagramTest' },
+        { path: '/mbti/enneagram', labelKey: 'site.nav.comboTest' },
       ]
     },
     {

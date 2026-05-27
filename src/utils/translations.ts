@@ -462,6 +462,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         fortuneReading: 'Fortune',
         taro: 'Tarot Cards',
         enneagramTest: 'Enneagram Test',
+        comboTest: 'Integrated Personality Test',
         mbtiEnneagram: 'MBTI+Enneagram'
       },
       home: {
