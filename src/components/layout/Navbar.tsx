@@ -76,8 +76,8 @@ const Navbar = (): ReactElement => {
       <div className="topbar">
         <div className="container">
           <div className="topbar-left">
-            <span className="topbar-tag">기업강의 맞춤제작 2026.05.18</span>
-            <span className="topbar-tag topbar-tag-extra">DreamIT Biz -  Ph.D Aebon</span>
+            <span className="topbar-tag">황수영의 운세 플랫폼</span>
+            <span className="topbar-tag topbar-tag-extra">사주 · 별자리 · MBTI</span>
           </div>
           <div className="topbar-right">
             <button onClick={toggleLanguage}>{language === 'ko' ? 'KR / EN' : 'EN / KR'}</button>
@@ -93,7 +93,7 @@ const Navbar = (): ReactElement => {
             <div className="logo">
               <Link to="/">
                 <span className="brand-mark">
-                  KDN<span className="brand-ampersand"> </span><span className="brand-accent">Vibe Coding</span>
+                  황수영<span className="brand-accent"> 운세</span>
                 </span>
               </Link>
             </div>

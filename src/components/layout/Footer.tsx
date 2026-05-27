@@ -11,16 +11,15 @@ const Footer = (): ReactElement => {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="footer-brand-mark">KDN Vibe Coding</div>
+            <div className="footer-brand-mark">황수영 운세</div>
             <p className="footer-tag">
-              KDN 직원을 위한 바이브코딩 풀스택 웹 개발 교육 플랫폼.
-              DreamIT Biz Group이 운영합니다.
+              사주팔자, 별자리, MBTI로 당신의 운명과 성격을 탐구하는 운세 플랫폼.
+              황수영이 운영합니다.
             </p>
             <div className="company-info">
               <p><strong>{site.company.name}</strong></p>
-              <p>대표이사: {site.company.ceo}</p>
-              <p>사업자등록번호: {site.company.bizNumber}</p>
-              {site.company.salesNumber && <p>통신판매신고번호: {site.company.salesNumber}</p>}
+              {site.company.email && <p>이메일: {site.company.email}</p>}
+              {site.company.businessHours && <p>{site.company.businessHours}</p>}
             </div>
           </div>
           <div>
@@ -34,12 +33,11 @@ const Footer = (): ReactElement => {
             </ul>
           </div>
           <div>
-            <h5>패밀리</h5>
+            <h5>운세</h5>
             <ul>
-              <li><a href={site.parentSite.url} target="_blank" rel="noopener noreferrer">{site.parentSite.name}</a></li>
-              {site.familySites.map((s, i) => (
-                <li key={i}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a></li>
-              ))}
+              <li><a href={site.url + '/saju'}>사주·운세</a></li>
+              <li><a href={site.url + '/horoscope'}>별자리</a></li>
+              <li><a href={site.url + '/mbti'}>MBTI</a></li>
             </ul>
           </div>
           <div>
@@ -67,7 +65,7 @@ const Footer = (): ReactElement => {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; 2025 &mdash; {new Date().getFullYear()} DreamIT Biz &middot; All rights reserved</span>
+          <span>&copy; 2025 &mdash; {new Date().getFullYear()} 황수영 &middot; All rights reserved</span>
           <span className="footer-version">v.2026.04 &middot; Editorial</span>
         </div>
       </div>
