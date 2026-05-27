@@ -124,6 +124,97 @@ const JIJI_LIFE: Record<string, { early: string; middle: string; late: string }>
   hae: { early: '낙천적이고 관대한 성격으로 주변에서 사랑받습니다.', middle: '풍요로운 재물운과 넓은 인간관계로 풍성한 중년을 보냅니다.', late: '풍요롭고 여유로운 노년에 가족들에게 둘러싸여 행복하게 삽니다.' },
 };
 
+const LUCKY_COLORS = [
+  { name: '크림슨 레드',    hex: '#DC2626', meaning: '강렬한 에너지로 추진력이 극대화됩니다' },
+  { name: '로열 블루',     hex: '#2563EB', meaning: '신뢰와 직관이 강해져 판단력이 예리해집니다' },
+  { name: '에메랄드',      hex: '#10B981', meaning: '성장과 치유의 기운으로 균형이 찾아옵니다' },
+  { name: '선샤인 골드',   hex: '#F59E0B', meaning: '밝은 행운의 기운이 일상에 스며듭니다' },
+  { name: '미드나잇 퍼플', hex: '#7C3AED', meaning: '직관과 영적 감각이 날카로워집니다' },
+  { name: '로즈 핑크',     hex: '#EC4899', meaning: '사랑과 매력의 기운이 강하게 흐릅니다' },
+  { name: '딥 네이비',     hex: '#1E3A8A', meaning: '깊은 집중력과 안정감이 높아집니다' },
+  { name: '선셋 오렌지',   hex: '#F97316', meaning: '창의성과 자신감이 폭발적으로 상승합니다' },
+  { name: '민트 그린',     hex: '#34D399', meaning: '상쾌한 새 기운이 찾아와 활력이 넘칩니다' },
+  { name: '샴페인 실버',   hex: '#94A3B8', meaning: '차분한 이성으로 현명한 선택을 하게 됩니다' },
+  { name: '버건디',        hex: '#9F1239', meaning: '깊은 의지력과 강인함이 솟아납니다' },
+  { name: '스카이 블루',   hex: '#0EA5E9', meaning: '자유롭고 유연한 사고가 길을 열어줍니다' },
+];
+
+const CAUTIONS: Record<string, string[]> = {
+  money: [
+    '충동적인 소비를 조심하세요. 지갑을 닫고 한 번 더 생각해보세요.',
+    '큰 투자나 결제는 신중하게 결정하세요. 예상치 못한 지출이 생길 수 있습니다.',
+    '빌려주는 것은 조심하세요. 돌아오지 않을 수 있는 시기입니다.',
+    '재물 관련 계약은 꼼꼼히 검토하세요. 구두 약속보다 문서가 중요합니다.',
+  ],
+  love: [
+    '감정을 앞세우기보다 상대의 말을 먼저 충분히 들어보세요.',
+    '오해가 생기기 쉬운 시기입니다. 확인하지 않고 단정짓지 마세요.',
+    '지나친 기대는 실망을 부릅니다. 관계에 여유를 주는 것이 중요합니다.',
+    '말보다 행동으로 마음을 전할 때입니다. 표현 방식을 점검해보세요.',
+  ],
+  career: [
+    '윗사람과의 마찰을 조심하세요. 의견 차이는 때로 침묵이 지혜입니다.',
+    '새로운 시작은 충분한 준비 후에 하세요. 조급함이 실수를 만듭니다.',
+    '중요한 결정은 단독으로 내리기보다 주변의 조언을 먼저 구하세요.',
+    '성과를 혼자 독차지하려 하지 마세요. 팀의 신뢰를 잃지 않는 것이 중요합니다.',
+  ],
+  health: [
+    '무리한 스케줄은 몸의 경고를 무시하게 만듭니다. 충분한 휴식을 취하세요.',
+    '수면 부족이 쌓이지 않도록 일찍 눕는 습관을 만들어보세요.',
+    '스트레스가 과하게 쌓이고 있습니다. 가벼운 운동이나 산책으로 해소하세요.',
+    '식습관이 흐트러질 수 있는 시기입니다. 규칙적인 식사를 꼭 챙기세요.',
+  ],
+};
+
+const simpleHash = (s: string) =>
+  s.split('').reduce((a, c) => (((a * 31) >>> 0) + c.charCodeAt(0)) >>> 0, 0);
+
+const getLuckyColor = (baseKey: string, period: string) =>
+  LUCKY_COLORS[simpleHash(baseKey + period + 'color') % LUCKY_COLORS.length];
+
+const getCaution = (
+  scores: { money: number; love: number; career: number; health: number },
+  baseKey: string,
+  period: string,
+) => {
+  const weakArea = (Object.entries(scores).sort(([, a], [, b]) => a - b)[0][0]) as keyof typeof CAUTIONS;
+  const pool = CAUTIONS[weakArea];
+  return pool[simpleHash(baseKey + period + 'caution') % pool.length];
+};
+
+const LuckyAndCaution = ({ baseKey, period, scores }: {
+  baseKey: string;
+  period: string;
+  scores: { money: number; love: number; career: number; health: number };
+}) => {
+  const color = getLuckyColor(baseKey, period);
+  const caution = getCaution(scores, baseKey, period);
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '8px' }}>
+      <div style={{ padding: '14px 16px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>
+          🍀 행운의 색
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+          <span style={{
+            display: 'inline-block', width: '28px', height: '28px',
+            borderRadius: '50%', background: color.hex, flexShrink: 0,
+            boxShadow: `0 0 8px ${color.hex}66`,
+          }} />
+          <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-primary)' }}>{color.name}</span>
+        </div>
+        <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{color.meaning}</p>
+      </div>
+      <div style={{ padding: '14px 16px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>
+          ⚠️ 조심해야 하는 것
+        </div>
+        <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{caution}</p>
+      </div>
+    </div>
+  );
+};
+
 const FortuneReading = (): ReactElement => {
   const pool = useFortunePool();
   const [birthYear, setBirthYear] = useState('');
@@ -268,9 +359,10 @@ const FortuneReading = (): ReactElement => {
                         );
                       })}
                     </div>
-                    <div style={{ padding: '10px 16px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', marginBottom: '14px', fontSize: '13px', color: 'var(--navy-800)' }}>
+                    <div style={{ padding: '10px 16px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', marginBottom: '8px', fontSize: '13px', color: 'var(--navy-800)' }}>
                       {overviewText(period, total, pool, baseKey)}
                     </div>
+                    <LuckyAndCaution baseKey={baseKey} period={period} scores={{ money: result.money, love: result.love, career: result.career, health: result.health }} />
                   </>
                 );
               })() : (() => {
@@ -287,7 +379,7 @@ const FortuneReading = (): ReactElement => {
                         {lifeText} {result.sign.name}의 <strong>{result.sign.trait}</strong> 기질과 {result.mbti.id}({result.mbti.nick})의 성격이 더해져 독특한 인생 흐름을 만들어냅니다.
                       </p>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '8px' }}>
                       {FAREAS.map(({ key, icon, label }) => {
                         const s = areaStars(baseKey, period, key);
                         return (
@@ -302,6 +394,7 @@ const FortuneReading = (): ReactElement => {
                         );
                       })}
                     </div>
+                    <LuckyAndCaution baseKey={baseKey} period={period} scores={{ money: result.money, love: result.love, career: result.career, health: result.health }} />
                   </>
                 );
               })()}
