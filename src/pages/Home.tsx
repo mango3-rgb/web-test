@@ -71,7 +71,7 @@ const Home = (): ReactElement => {
             gap: '10px',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: '28px',
+            marginBottom: '16px',
           }}>
             {[
               { label: '☯ 사주·운세', path: '/saju' },
@@ -94,6 +94,42 @@ const Home = (): ReactElement => {
                   color: 'var(--navy-800)',
                   textDecoration: 'none',
                   transition: 'border-color 0.15s, background 0.15s',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Personality Test Quick Links */}
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginBottom: '28px',
+          }}>
+            {[
+              { label: '☯️ 에니어그램 테스트', path: '/mbti/enneagram-test' },
+              { label: '🧬 통합 성격 테스트', path: '/mbti/enneagram' },
+            ].map(({ label, path }) => (
+              <Link
+                key={path}
+                to={path}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 20px',
+                  background: 'transparent',
+                  border: '1px solid var(--gold)',
+                  borderRadius: '10px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  color: 'var(--gold)',
+                  textDecoration: 'none',
+                  transition: 'background 0.15s',
                   whiteSpace: 'nowrap',
                 }}
               >
