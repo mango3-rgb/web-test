@@ -3,266 +3,238 @@ import SEOHead from '../components/SEOHead';
 import type { ReactElement } from 'react';
 
 type BloodType = 'A' | 'B' | 'O' | 'AB';
-type Dim = 'EI' | 'SN' | 'TF' | 'JP';
 
-interface Q {
-  id: number;
-  q: string;
-  a: string;
-  b: string;
-  dim: Dim;
-  aIsFirst: boolean;
-}
+const BLOOD_INFO: Record<BloodType, { symbol: string; traits: string[]; desc: string }> = {
+  A:  { symbol: '🅰️', traits: ['꼼꼼함', '계획적', '책임감', '완벽주의'], desc: '원칙을 중시하고 세심하게 챙기는 성실형' },
+  B:  { symbol: '🅱️', traits: ['자유분방', '개성강함', '창의적', '독립적'], desc: '틀에 얽매이지 않고 자신만의 길을 가는 자유형' },
+  O:  { symbol: '🅾️', traits: ['리더십', '대담함', '사교적', '추진력'], desc: '목표를 향해 과감히 나아가는 행동파 리더형' },
+  AB: { symbol: '🆎', traits: ['합리적', '독창적', '이중성', '냉철함'], desc: '이성과 감성을 함께 가진 복잡미묘한 예술가형' },
+};
 
-const QUESTIONS: Q[] = [
-  { id:  1, q: '처음 만나는 자리에서 나는?',               a: '먼저 말을 걸고 분위기를 만든다',        b: '상대가 먼저 다가올 때까지 기다린다',     dim: 'EI', aIsFirst: true },
-  { id:  2, q: '계획을 세울 때 나는?',                     a: '세세한 일정까지 미리 짜두어야 한다',     b: '큰 방향만 잡고 상황에 따라 움직인다',   dim: 'JP', aIsFirst: true },
-  { id:  3, q: '친구가 고민을 털어놓을 때 나는?',          a: '해결책과 조언을 먼저 생각한다',         b: '일단 충분히 들어주는 것이 중요하다',    dim: 'TF', aIsFirst: true },
-  { id:  4, q: '새로운 정보를 받아들일 때 나는?',          a: '구체적인 사실과 데이터를 중시한다',      b: '큰 그림과 가능성에 더 끌린다',         dim: 'SN', aIsFirst: true },
-  { id:  5, q: '쉬는 날 에너지를 충전하는 방법은?',        a: '사람들과 어울리며 활동하는 것',          b: '혼자 조용히 시간을 보내는 것',         dim: 'EI', aIsFirst: true },
-  { id:  6, q: '일이나 과제를 처리할 때 나는?',            a: '마감 전에 미리 끝내두는 편이다',         b: '마감이 다가올수록 집중력이 올라간다',   dim: 'JP', aIsFirst: true },
-  { id:  7, q: '의견 충돌이 생겼을 때 나는?',             a: '논리적으로 내 입장을 명확하게 밝힌다',   b: '상대 감정을 먼저 배려하며 조율한다',   dim: 'TF', aIsFirst: true },
-  { id:  8, q: '여행지를 고를 때 나는?',                  a: '가본 사람이 많고 검증된 곳이 좋다',      b: '남들이 잘 안 가는 독특한 곳에 끌린다', dim: 'SN', aIsFirst: true },
-  { id:  9, q: '모임에서 오래 있으면?',                   a: '시간이 빨리 가고 더 있고 싶어진다',      b: '어느 순간부터 혼자 있고 싶어진다',     dim: 'EI', aIsFirst: true },
-  { id: 10, q: '집이나 책상 정리 스타일은?',              a: '물건마다 자리가 있어야 직성이 풀린다',   b: '대충 쓸 수 있을 정도면 충분하다',      dim: 'JP', aIsFirst: true },
-  { id: 11, q: '중요한 결정을 내릴 때 기준은?',           a: '객관적인 득실 분석이 우선이다',          b: '관계와 감정을 무시할 수 없다',         dim: 'TF', aIsFirst: true },
-  { id: 12, q: '책이나 영화를 고를 때 나는?',             a: '현실적이고 실용적인 내용이 좋다',        b: '상상력을 자극하는 판타지·SF에 끌린다', dim: 'SN', aIsFirst: true },
-];
+const MBTI_LIST = [
+  'INTJ','INTP','ENTJ','ENTP',
+  'INFJ','INFP','ENFJ','ENFP',
+  'ISTJ','ISFJ','ESTJ','ESFJ',
+  'ISTP','ISFP','ESTP','ESFP',
+] as const;
+type MbtiType = typeof MBTI_LIST[number];
 
-const MBTI_LABELS: Record<string, string> = {
+const MBTI_NAMES: Record<MbtiType, string> = {
   INTJ: '전략가', INTP: '논리술사', ENTJ: '통솔자', ENTP: '변론가',
   INFJ: '옹호자', INFP: '중재자',  ENFJ: '선도자', ENFP: '활동가',
   ISTJ: '현실주의자', ISFJ: '수호자', ESTJ: '경영자', ESFJ: '집정관',
   ISTP: '장인',  ISFP: '모험가',  ESTP: '사업가', ESFP: '연예인',
 };
 
-const BLOOD_INFO: Record<BloodType, { symbol: string; traits: string[]; core: string }> = {
-  A:  { symbol: '🅰️', traits: ['꼼꼼함', '계획적', '책임감', '완벽주의'], core: '원칙을 중시하고 세심하게 챙기는 성실형' },
-  B:  { symbol: '🅱️', traits: ['자유분방', '개성강함', '직관적', '창의적'], core: '틀에 얽매이지 않고 자신만의 길을 가는 자유형' },
-  O:  { symbol: '🅾️', traits: ['리더십', '대담함', '사교적', '추진력'], core: '목표를 향해 과감히 나아가는 행동파 리더형' },
-  AB: { symbol: '🆎', traits: ['합리적', '독창적', '냉철함', '예측불가'], core: '상반된 면을 함께 가진 복잡미묘한 예술가형' },
-};
+const COMBO: Record<string, string> = {
+  'A-INTJ': '완벽한 계획과 냉철한 전략으로 목표를 달성하는 정밀 설계자. 한 치의 오차도 허용하지 않는다.',
+  'A-INTP': '모든 것을 분석하고 최적의 해답을 찾을 때까지 멈추지 않는 완벽주의 논리술사.',
+  'A-ENTJ': '꼼꼼한 전략과 강한 추진력을 겸비한 완벽주의 리더. 팀을 정확하게 이끈다.',
+  'A-ENTP': '치밀한 준비로 도전을 즐기는 변론가. 철저한 논리로 상대를 압도한다.',
+  'A-INFJ': '섬세한 통찰력으로 타인을 이해하고 이상적인 세상을 꿈꾸는 옹호자.',
+  'A-INFP': '깊은 감수성과 강한 책임감이 공존하는 조용한 이상주의자.',
+  'A-ENFJ': '세심한 배려와 리더십을 겸비한 헌신적인 멘토. 주변 사람을 세심히 이끈다.',
+  'A-ENFP': '꼼꼼함과 열정이 공존하는 활동가. 아이디어가 넘치면서도 완성도를 중시한다.',
+  'A-ISTJ': '규칙과 책임을 철저히 지키며 신뢰를 쌓아가는 완벽한 현실주의자.',
+  'A-ISFJ': '조용하지만 헌신적이고 세심한 수호자. 주변을 꼼꼼하게 챙기는 든든한 존재.',
+  'A-ESTJ': '체계와 규율로 조직을 관리하는 완벽주의 경영자. 효율과 정확성을 동시에 추구한다.',
+  'A-ESFJ': '따뜻하고 세심한 배려로 모든 사람을 챙기는 완벽한 집정관형.',
+  'A-ISTP': '꼼꼼한 관찰과 실용적인 문제 해결 능력을 갖춘 조용한 전문가.',
+  'A-ISFP': '섬세한 감성과 책임감을 가진 조용한 예술가형. 자신만의 완성도를 추구한다.',
+  'A-ESTP': '철저한 준비로 기회를 잡는 행동파. 꼼꼼함과 대담함이 공존한다.',
+  'A-ESFP': '세심한 배려와 밝은 에너지를 동시에 가진 완벽주의 엔터테이너형.',
 
-const COMBO_DESC: Partial<Record<string, string>> = {
-  'A-ISTJ': '원칙과 체계를 사랑하는 완벽한 현실주의자',
-  'A-ISFJ': '헌신과 배려로 주변을 지키는 조용한 수호자',
-  'A-INFJ': '깊은 통찰력으로 세상을 바꾸려는 이상주의자',
-  'A-INTJ': '정밀한 계획과 전략으로 목표를 달성하는 설계자',
-  'B-ENFP': '에너지 넘치고 아이디어가 폭발하는 창의적 자유인',
-  'B-ENTP': '도전을 즐기고 논쟁에서 빛나는 아이디어 뱅크',
-  'B-ISTP': '독립적이고 실용적인 쿨한 장인형 자유인',
-  'B-INFP': '자신만의 세계에서 깊이 있는 감성을 표현하는 몽상가',
-  'O-ENTJ': '카리스마와 추진력으로 조직을 이끄는 타고난 리더',
-  'O-ESTJ': '규칙과 효율로 목표를 달성하는 강력한 실행가',
-  'O-ENFJ': '사람의 마음을 움직이는 따뜻한 리더십의 소유자',
-  'O-ESTP': '순간의 기회를 잡는 본능적인 행동파 사업가',
-  'AB-INTP': '세상 모든 것에 의문을 품는 독립적인 분석가',
-  'AB-INFJ': '직관과 이성 사이에서 깊이 고민하는 신비로운 예언자',
-  'AB-ENTP': '예측불가한 발상으로 틀을 깨는 혁신적 실험가',
-  'AB-ENFP': '무한한 상상력과 공감 능력을 가진 카멜레온형 인간',
-};
+  'B-INTJ': '독창적인 비전을 가진 아웃사이더형 전략가. 아무도 생각 못한 방식으로 성공한다.',
+  'B-INTP': '틀에 얽매이지 않는 자유로운 논리술사. 독창적인 이론으로 세상을 분석한다.',
+  'B-ENTJ': '자신만의 방식으로 조직을 이끄는 카리스마 넘치는 리더. 독창성이 강점이다.',
+  'B-ENTP': '아이디어가 끊임없이 샘솟는 자유로운 변론가. 예측불가한 방식으로 문제를 푼다.',
+  'B-INFJ': '독특한 직관력으로 깊은 통찰을 얻는 신비로운 예언자형.',
+  'B-INFP': '자신만의 세계에서 독창적인 감성을 표현하는 자유로운 몽상가.',
+  'B-ENFJ': '개성 넘치면서도 사람을 끌어당기는 매력적인 선도자.',
+  'B-ENFP': '에너지와 창의성이 폭발하는 자유로운 영혼. 어디서나 주목받는 활동가.',
+  'B-ISTJ': '독립적이고 자기 방식을 고수하는 현실주의자. 자신의 기준에 철저히 충실하다.',
+  'B-ISFJ': '자신만의 방식으로 주변을 챙기는 독특한 수호자형.',
+  'B-ESTJ': '자신의 규칙으로 조직을 이끄는 개성파 경영자. 기존 틀을 자주 깬다.',
+  'B-ESFJ': '활발하고 개성 넘치는 방식으로 사람들과 어울리는 사교형.',
+  'B-ISTP': '독립적이고 자유로운 쿨한 전문가. 묵묵히 자신만의 기술을 쌓아간다.',
+  'B-ISFP': '자유로운 감성과 독창적인 예술성을 가진 개성 있는 모험가.',
+  'B-ESTP': '본능적인 직관과 행동력으로 기회를 잡는 개성파 사업가.',
+  'B-ESFP': '에너지 넘치고 개성 강한 자유로운 엔터테이너형.',
 
-type Phase = 'bloodtype' | 'test' | 'result';
+  'O-INTJ': '강한 의지와 전략적 사고로 비전을 실현하는 냉철한 리더.',
+  'O-INTP': '논리와 추진력을 겸비한 독창적 분석가. 이론을 행동으로 옮긴다.',
+  'O-ENTJ': '타고난 카리스마와 전략으로 조직을 이끄는 최강 리더형.',
+  'O-ENTP': '도전적이고 설득력 있는 아이디어로 변화를 만드는 추진력 있는 혁신가.',
+  'O-INFJ': '깊은 통찰과 강한 신념으로 사람들을 이끄는 열정적인 옹호자.',
+  'O-INFP': '행동하는 이상주의자. 세상을 바꾸고 싶은 마음을 직접 실천한다.',
+  'O-ENFJ': '사람의 마음을 움직이는 따뜻하고 강력한 리더십의 소유자.',
+  'O-ENFP': '넘치는 에너지와 사교성으로 모든 공간을 활기차게 만드는 활동가.',
+  'O-ISTJ': '책임감과 행동력을 겸비한 믿음직한 실행가형 현실주의자.',
+  'O-ISFJ': '헌신적인 행동으로 주변을 든든하게 지키는 적극적인 수호자.',
+  'O-ESTJ': '규칙과 추진력으로 조직을 완벽하게 관리하는 강력한 경영자.',
+  'O-ESFJ': '활발하고 따뜻한 사교성으로 모든 사람을 이어주는 집정관형.',
+  'O-ISTP': '냉철하고 실용적인 행동파. 말보다 행동으로 결과를 만든다.',
+  'O-ISFP': '자연스러운 리더십과 따뜻한 감성을 가진 행동하는 모험가.',
+  'O-ESTP': '본능과 결단력으로 기회를 잡는 타고난 사업가형 행동파.',
+  'O-ESFP': '폭발적인 에너지와 사교성으로 모든 자리를 빛내는 연예인형.',
+
+  'AB-INTJ': '천재적인 전략가. 남들이 이해 못하는 방식으로 세상을 설계한다.',
+  'AB-INTP': '복잡하고 독창적인 이론을 만드는 분석의 달인. 예측불가한 결론에 도달한다.',
+  'AB-ENTJ': '합리적이고 독창적인 방식으로 조직을 이끄는 혁신적 리더.',
+  'AB-ENTP': '예측불가한 발상과 논리로 틀을 깨는 천재적 혁신가.',
+  'AB-INFJ': '직관과 이성 사이에서 깊이 고민하는 신비로운 예언자.',
+  'AB-INFP': '복잡한 내면과 독창적인 감성을 가진 신비로운 이상주의자.',
+  'AB-ENFJ': '카리스마와 독창성이 결합된 복잡미묘한 리더. 사람들을 매혹시킨다.',
+  'AB-ENFP': '무한한 상상력과 공감 능력을 가진 예측불가 카멜레온형.',
+  'AB-ISTJ': '합리적이고 체계적이지만 독창적인 방식을 추구하는 이중적 현실주의자.',
+  'AB-ISFJ': '냉철함과 따뜻함이 공존하는 복잡한 수호자형.',
+  'AB-ESTJ': '합리적 판단과 실행력으로 조직을 혁신하는 독창적 경영자.',
+  'AB-ESFJ': '이성과 감성을 동시에 활용하는 복잡한 집정관형.',
+  'AB-ISTP': '냉철하고 독창적인 분석으로 문제를 해결하는 희귀한 전문가형.',
+  'AB-ISFP': '합리성과 감성이 공존하는 복잡하고 독창적인 예술가형.',
+  'AB-ESTP': '합리적 판단과 대담한 행동력을 겸비한 예측불가 사업가형.',
+  'AB-ESFP': '이성과 감성, 자유로움이 공존하는 매력적인 카멜레온형 연예인.',
+};
 
 const BloodTypeMbtiTest = (): ReactElement => {
-  const [phase, setPhase] = useState<Phase>('bloodtype');
   const [bloodType, setBloodType] = useState<BloodType | null>(null);
-  const [current, setCurrent] = useState(0);
-  const [scores, setScores] = useState<Record<Dim, number>>({ EI: 0, SN: 0, TF: 0, JP: 0 });
-  const [mbtiResult, setMbtiResult] = useState('');
-  const [selected, setSelected] = useState<'A' | 'B' | null>(null);
+  const [mbti, setMbti] = useState<MbtiType | null>(null);
 
-  const calcMbti = (s: Record<Dim, number>): string => {
-    const counts: Record<Dim, number> = { EI: 0, SN: 0, TF: 0, JP: 0 };
-    QUESTIONS.forEach((q) => { counts[q.dim]++; });
-    return [
-      s.EI >= counts.EI / 2 ? 'E' : 'I',
-      s.SN >= counts.SN / 2 ? 'S' : 'N',
-      s.TF >= counts.TF / 2 ? 'T' : 'F',
-      s.JP >= counts.JP / 2 ? 'J' : 'P',
-    ].join('');
-  };
-
-  const handleAnswer = (choice: 'A' | 'B') => {
-    setSelected(choice);
-    setTimeout(() => {
-      const q = QUESTIONS[current];
-      const newScores = { ...scores };
-      if ((choice === 'A' && q.aIsFirst) || (choice === 'B' && !q.aIsFirst)) {
-        newScores[q.dim]++;
-      }
-      setScores(newScores);
-      setSelected(null);
-      if (current + 1 < QUESTIONS.length) {
-        setCurrent(current + 1);
-      } else {
-        setMbtiResult(calcMbti(newScores));
-        setPhase('result');
-      }
-    }, 260);
-  };
-
-  const reset = () => {
-    setPhase('bloodtype');
-    setBloodType(null);
-    setCurrent(0);
-    setScores({ EI: 0, SN: 0, TF: 0, JP: 0 });
-    setMbtiResult('');
-    setSelected(null);
-  };
-
-  const progress = phase === 'test' ? Math.round((current / QUESTIONS.length) * 100) : 0;
-  const q = QUESTIONS[current];
+  const comboKey = bloodType && mbti ? `${bloodType}-${mbti}` : null;
+  const comboDesc = comboKey ? COMBO[comboKey] : null;
   const bInfo = bloodType ? BLOOD_INFO[bloodType] : null;
-  const comboKey = bloodType && mbtiResult ? `${bloodType}-${mbtiResult}` : null;
-  const comboDesc = comboKey ? (COMBO_DESC[comboKey] || `${bloodType}형의 감성과 ${mbtiResult} 성격이 어우러진 독특한 조합`) : '';
-
-  const cardStyle = (choice: 'A' | 'B'): React.CSSProperties => ({
-    display: 'flex', alignItems: 'flex-start', gap: '14px',
-    padding: '18px 20px',
-    background: selected === choice ? 'var(--bg-medium-gray)' : 'var(--bg-white)',
-    border: `2px solid ${selected === choice ? 'var(--gold)' : 'var(--line)'}`,
-    borderRadius: '12px', cursor: 'pointer', textAlign: 'left',
-    fontSize: '15px', color: 'var(--text-primary)', fontWeight: 500,
-    lineHeight: 1.5, transition: 'all 0.15s', fontFamily: 'inherit', width: '100%',
-    opacity: selected && selected !== choice ? 0.4 : 1,
-  });
 
   return (
     <>
-      <SEOHead title="혈액형+MBTI 테스트 | Suyoung's Secret" description="혈액형과 MBTI를 함께 알아보는 성격 테스트" />
+      <SEOHead title="혈액형+MBTI 성격 분석 | Suyoung's Secret" description="혈액형과 MBTI 유형을 직접 선택해 나만의 성격 조합을 알아보세요" />
 
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">혈액형 · MBTI · 성격 분석</div>
-          <h2>혈액형+MBTI 테스트</h2>
-          <p>혈액형과 MBTI로 나의 성격을 더 입체적으로 알아보세요</p>
+          <h2>혈액형+MBTI 성격 분석</h2>
+          <p>혈액형과 MBTI를 선택하면 조합 분석 결과를 바로 확인할 수 있어요</p>
         </div>
       </section>
 
       <section className="section-ed">
-        <div className="container" style={{ maxWidth: '620px', margin: '0 auto' }}>
+        <div className="container" style={{ maxWidth: '720px', margin: '0 auto' }}>
 
-          {phase === 'bloodtype' && (
-            <div style={{ textAlign: 'center', padding: '48px 24px' }}>
-              <div style={{ fontSize: '56px', marginBottom: '20px' }}>🩸</div>
-              <h3 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
-                먼저 혈액형을 선택해 주세요
-              </h3>
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '36px', lineHeight: 1.7 }}>
-                혈액형을 고른 후 12문항 MBTI 테스트를 진행합니다
-              </p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+          {/* Selectors */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+
+            {/* Blood Type */}
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.12em', marginBottom: '12px' }}>
+                혈액형 선택
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 {(['A', 'B', 'O', 'AB'] as BloodType[]).map((bt) => {
-                  const info = BLOOD_INFO[bt];
+                  const active = bloodType === bt;
                   return (
                     <button
                       key={bt}
                       onClick={() => setBloodType(bt)}
                       style={{
-                        padding: '24px 16px',
-                        background: bloodType === bt ? 'var(--bg-medium-gray)' : 'var(--bg-white)',
-                        border: `2px solid ${bloodType === bt ? 'var(--gold)' : 'var(--line)'}`,
-                        borderRadius: '16px', cursor: 'pointer',
+                        padding: '16px 8px',
+                        background: active ? 'var(--bg-medium-gray)' : 'var(--bg-white)',
+                        border: `2px solid ${active ? 'var(--gold)' : 'var(--line)'}`,
+                        borderRadius: '12px', cursor: 'pointer',
                         transition: 'all 0.15s', fontFamily: 'inherit',
+                        textAlign: 'center',
                       }}
                     >
-                      <div style={{ fontSize: '32px', marginBottom: '8px' }}>{info.symbol}</div>
-                      <div style={{ fontSize: '18px', fontWeight: 900, color: bloodType === bt ? 'var(--gold)' : 'var(--text-primary)', marginBottom: '6px' }}>
+                      <div style={{ fontSize: '22px', marginBottom: '4px' }}>{BLOOD_INFO[bt].symbol}</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: active ? 'var(--gold)' : 'var(--text-primary)' }}>
                         {bt}형
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                        {info.traits.slice(0, 2).join(' · ')}
                       </div>
                     </button>
                   );
                 })}
               </div>
-              {bloodType && (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setPhase('test')}
-                  style={{ fontSize: '16px', padding: '14px 40px', marginTop: '12px' }}
-                >
-                  {bloodType}형으로 테스트 시작 →
-                </button>
-              )}
             </div>
-          )}
 
-          {phase === 'test' && (
+            {/* MBTI */}
             <div>
-              <div style={{ marginBottom: '28px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '13px', color: 'var(--text-secondary)' }}>
-                  <span>Q{current + 1} / {QUESTIONS.length}</span>
-                  <span>{progress}%</span>
-                </div>
-                <div style={{ height: '4px', background: 'var(--line)', borderRadius: '2px', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${progress}%`, background: 'var(--gold)', borderRadius: '2px', transition: 'width 0.3s ease' }} />
-                </div>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.12em', marginBottom: '12px' }}>
+                MBTI 선택
               </div>
-
-              <div style={{
-                padding: '32px 28px', background: 'var(--bg-white)',
-                border: '1px solid var(--line)', borderRadius: '16px', marginBottom: '20px',
-              }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '14px' }}>
-                  Q{String(current + 1).padStart(2, '0')}
-                </div>
-                <h3 style={{ fontSize: '19px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.5, margin: 0 }}>
-                  {q.q}
-                </h3>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {(['A', 'B'] as const).map((choice) => (
-                  <button key={choice} onClick={() => !selected && handleAnswer(choice)}
-                    style={cardStyle(choice)} disabled={!!selected}>
-                    <span style={{
-                      minWidth: '28px', height: '28px', borderRadius: '50%',
-                      background: selected === choice ? 'var(--gold)' : 'var(--bg-medium-gray)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontWeight: 700, fontSize: '12px',
-                      color: selected === choice ? 'var(--bg-white)' : 'var(--text-secondary)',
-                      flexShrink: 0, transition: 'all 0.15s',
-                    }}>{choice}</span>
-                    {choice === 'A' ? q.a : q.b}
-                  </button>
-                ))}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
+                {MBTI_LIST.map((m) => {
+                  const active = mbti === m;
+                  return (
+                    <button
+                      key={m}
+                      onClick={() => setMbti(m)}
+                      style={{
+                        padding: '8px 4px',
+                        background: active ? 'var(--bg-medium-gray)' : 'var(--bg-white)',
+                        border: `2px solid ${active ? 'var(--gold)' : 'var(--line)'}`,
+                        borderRadius: '8px', cursor: 'pointer',
+                        fontSize: '12px', fontWeight: 700,
+                        color: active ? 'var(--gold)' : 'var(--text-primary)',
+                        transition: 'all 0.15s', fontFamily: 'inherit',
+                      }}
+                    >
+                      {m}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          )}
+          </div>
 
-          {phase === 'result' && bInfo && (
-            <div>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.15em', textAlign: 'center', marginBottom: '20px' }}>
-                나의 혈액형+MBTI 유형
+          {/* Result */}
+          {comboDesc && bInfo && mbti ? (
+            <div style={{ animation: 'fadeIn 0.3s ease' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.12em', textAlign: 'center', marginBottom: '20px' }}>
+                분석 결과
               </div>
 
+              {/* Type badges */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '20px' }}>
-                <div style={{ padding: '24px 16px', background: 'var(--bg-white)', border: '2px solid var(--gold)', borderRadius: '16px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '36px', marginBottom: '8px' }}>{bInfo.symbol}</div>
+                <div style={{
+                  padding: '20px 16px', background: 'var(--bg-white)',
+                  border: '2px solid var(--gold)', borderRadius: '16px', textAlign: 'center',
+                }}>
+                  <div style={{ fontSize: '28px', marginBottom: '6px' }}>{bInfo.symbol}</div>
                   <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '4px' }}>혈액형</div>
-                  <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary)' }}>{bloodType}형</div>
+                  <div style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)' }}>{bloodType}형</div>
                 </div>
-                <div style={{ padding: '24px 16px', background: 'var(--bg-white)', border: '2px solid var(--gold)', borderRadius: '16px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '36px', marginBottom: '8px' }}>🧠</div>
+                <div style={{
+                  padding: '20px 16px', background: 'var(--bg-white)',
+                  border: '2px solid var(--gold)', borderRadius: '16px', textAlign: 'center',
+                }}>
+                  <div style={{ fontSize: '28px', marginBottom: '6px' }}>🧠</div>
                   <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '4px' }}>MBTI</div>
-                  <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--text-primary)' }}>{mbtiResult}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>{MBTI_LABELS[mbtiResult] || ''}</div>
+                  <div style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)' }}>{mbti}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '3px' }}>{MBTI_NAMES[mbti]}</div>
                 </div>
               </div>
 
-              <div style={{ padding: '24px 28px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '16px', marginBottom: '14px' }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>조합 성격</div>
-                <p style={{ fontSize: '15px', color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.6, margin: 0 }}>
+              {/* Combo description */}
+              <div style={{
+                padding: '24px 28px', background: 'var(--bg-white)',
+                border: '1px solid var(--line)', borderRadius: '16px', marginBottom: '14px',
+              }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>
+                  {bloodType}형 × {mbti} 조합 성격
+                </div>
+                <p style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.7, margin: 0 }}>
                   {comboDesc}
                 </p>
               </div>
 
-              <div style={{ padding: '20px 24px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '16px', marginBottom: '24px' }}>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>혈액형 핵심 성향</div>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7, margin: '0 0 12px' }}>{bInfo.core}</p>
+              {/* Blood type traits */}
+              <div style={{
+                padding: '20px 24px', background: 'var(--bg-white)',
+                border: '1px solid var(--line)', borderRadius: '14px', marginBottom: '28px',
+              }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gold)', letterSpacing: '0.1em', marginBottom: '10px' }}>
+                  {bloodType}형 기본 성향
+                </div>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7, margin: '0 0 12px' }}>
+                  {bInfo.desc}
+                </p>
                 <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                   {bInfo.traits.map((tr) => (
                     <span key={tr} style={{
@@ -273,10 +245,17 @@ const BloodTypeMbtiTest = (): ReactElement => {
                   ))}
                 </div>
               </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button className="btn btn-primary" onClick={reset}>다시 테스트</button>
-              </div>
+            </div>
+          ) : (
+            <div style={{
+              textAlign: 'center', padding: '48px 24px',
+              background: 'var(--bg-white)', border: '1px dashed var(--line)', borderRadius: '16px',
+              color: 'var(--text-light)', fontSize: '15px', lineHeight: 1.8,
+            }}>
+              <div style={{ fontSize: '40px', marginBottom: '12px' }}>🩸 × 🧠</div>
+              위에서 <strong style={{ color: 'var(--text-secondary)' }}>혈액형</strong>과{' '}
+              <strong style={{ color: 'var(--text-secondary)' }}>MBTI</strong>를 선택하면<br />
+              조합 성격 분석 결과가 여기에 나타납니다
             </div>
           )}
 
