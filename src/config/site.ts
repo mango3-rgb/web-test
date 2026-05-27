@@ -81,15 +81,6 @@ const site: SiteConfig = {
       ]
     },
     {
-      labelKey: 'site.nav.about',
-      path: '/about',
-      activePath: '/about',
-      dropdown: [
-        { path: '/about', labelKey: 'site.nav.aboutMe' },
-        { path: '/about/consult', labelKey: 'site.nav.aboutConsult' },
-      ]
-    },
-    {
       labelKey: 'site.nav.board',
       path: '/board/inquiry',
       activePath: '/board',
@@ -104,7 +95,6 @@ const site: SiteConfig = {
     { path: '/saju', labelKey: 'site.nav.saju' },
     { path: '/horoscope', labelKey: 'site.nav.horoscope' },
     { path: '/mbti', labelKey: 'site.nav.mbti' },
-    { path: '/about', labelKey: 'site.nav.about' },
   ],
 
   familySites: [],

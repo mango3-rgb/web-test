@@ -1,7 +1,6 @@
 import { type ReactElement } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
 
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
@@ -18,10 +17,7 @@ import InquiryBoard from '../pages/InquiryBoard';
 import DiscussionBoard from '../pages/DiscussionBoard';
 import MbtiTest from '../pages/MbtiTest';
 
-const PublicLayout = (): ReactElement => {
-  const location = useLocation();
-  const isHome = location.pathname === '/';
-  return (
+const PublicLayout = (): ReactElement => (
   <>
     <Navbar />
     <main>
@@ -49,9 +45,7 @@ const PublicLayout = (): ReactElement => {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
-    {!isHome && <Footer />}
   </>
-  );
-};
+);
 
 export default PublicLayout;
