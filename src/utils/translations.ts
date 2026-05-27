@@ -223,7 +223,9 @@ export const translations: Record<string, Record<string, unknown>> = {
         boardDiscussion: '토론 게시판',
         fortune: '나의 운세',
         fortuneReading: '운세 보기',
-        taro: '타로카드'
+        taro: '타로카드',
+        enneagramTest: '에니어그램 테스트',
+        mbtiEnneagram: 'MBTI+에니어그램'
       },
       home: {
         title: 'KDN Vibe Coding',
@@ -457,7 +459,9 @@ export const translations: Record<string, Record<string, unknown>> = {
         boardDiscussion: 'Discussion',
         fortune: 'My Fortune',
         fortuneReading: 'Fortune',
-        taro: 'Tarot Cards'
+        taro: 'Tarot Cards',
+        enneagramTest: 'Enneagram Test',
+        mbtiEnneagram: 'MBTI+Enneagram'
       },
       home: {
         title: 'KDN Vibe Coding',

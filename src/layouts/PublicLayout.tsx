@@ -18,6 +18,9 @@ import DiscussionBoard from '../pages/DiscussionBoard';
 import MbtiTest from '../pages/MbtiTest';
 import FortuneReading from '../pages/FortuneReading';
 import TaroReading from '../pages/TaroReading';
+import EnneagramTest from '../pages/EnneagramTest';
+import MbtiEnneagram from '../pages/MbtiEnneagram';
+import AdminPage from '../pages/AdminPage';
 
 const PublicLayout = (): ReactElement => (
   <>
@@ -43,9 +46,13 @@ const PublicLayout = (): ReactElement => (
         <Route path="/board/discussion" element={<DiscussionBoard />} />
 
         <Route path="/mbti/test" element={<MbtiTest />} />
+        <Route path="/mbti/enneagram-test" element={<EnneagramTest />} />
+        <Route path="/mbti/enneagram" element={<MbtiEnneagram />} />
 
         <Route path="/fortune" element={<FortuneReading />} />
         <Route path="/taro" element={<TaroReading />} />
+
+        <Route path="/admin" element={<AdminPage />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
