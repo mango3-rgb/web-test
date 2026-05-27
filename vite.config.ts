@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/web-test/',
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     assetsDir: 'assets',
     emptyOutDir: true
   },
