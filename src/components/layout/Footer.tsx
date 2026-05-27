@@ -11,10 +11,9 @@ const Footer = (): ReactElement => {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="footer-brand-mark">황수영 운세</div>
+            <div className="footer-brand-mark">운세 플랫폼</div>
             <p className="footer-tag">
               사주팔자, 별자리, MBTI로 당신의 운명과 성격을 탐구하는 운세 플랫폼.
-              황수영이 운영합니다.
             </p>
             <div className="company-info">
               <p><strong>{site.company.name}</strong></p>
@@ -65,7 +64,7 @@ const Footer = (): ReactElement => {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; 2025 &mdash; {new Date().getFullYear()} 황수영 &middot; All rights reserved</span>
+          <span>&copy; 2025 &mdash; {new Date().getFullYear()} 운세 플랫폼 &middot; All rights reserved</span>
           <span className="footer-version">v.2026.04 &middot; Editorial</span>
         </div>
       </div>

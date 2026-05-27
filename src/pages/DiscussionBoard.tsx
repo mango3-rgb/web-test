@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 
 const DiscussionBoard = (): ReactElement => (
   <>
-    <SEOHead title="토론 게시판 | 황수영 운세" description="토론 게시판 — 준비 중입니다" />
+    <SEOHead title="토론 게시판 | 운세 플랫폼" description="토론 게시판 — 준비 중입니다" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Discussion · 토론</div>

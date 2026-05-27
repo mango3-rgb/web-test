@@ -22,7 +22,7 @@ const Stars = ({ level }: { level: number }) => (
 
 const MbtiCompatibility = (): ReactElement => (
   <>
-    <SEOHead title="MBTI 궁합 | 황수영 운세" description="MBTI 유형별 궁합 분석" />
+    <SEOHead title="MBTI 궁합 | 운세 플랫폼" description="MBTI 유형별 궁합 분석" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">MBTI Match · MBTI 궁합</div>

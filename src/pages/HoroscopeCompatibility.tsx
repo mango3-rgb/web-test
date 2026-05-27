@@ -22,7 +22,7 @@ const Stars = ({ level }: { level: number }) => (
 
 const HoroscopeCompatibility = (): ReactElement => (
   <>
-    <SEOHead title="별자리 궁합 | 황수영 운세" description="4가지 원소별 별자리 궁합 안내" />
+    <SEOHead title="별자리 궁합 | 운세 플랫폼" description="4가지 원소별 별자리 궁합 안내" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Star Match · 별자리 궁합</div>

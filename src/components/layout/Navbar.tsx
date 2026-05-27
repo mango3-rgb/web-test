@@ -76,7 +76,7 @@ const Navbar = (): ReactElement => {
       <div className="topbar">
         <div className="container">
           <div className="topbar-left">
-            <span className="topbar-tag">황수영의 운세 플랫폼</span>
+            <span className="topbar-tag">사주·별자리·MBTI 운세 플랫폼</span>
             <span className="topbar-tag topbar-tag-extra">사주 · 별자리 · MBTI</span>
           </div>
           <div className="topbar-right">
@@ -93,7 +93,7 @@ const Navbar = (): ReactElement => {
             <div className="logo">
               <Link to="/">
                 <span className="brand-mark">
-                  황수영<span className="brand-accent"> 운세</span>
+                  운세<span className="brand-accent"> 플랫폼</span>
                 </span>
               </Link>
             </div>

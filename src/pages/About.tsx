@@ -12,12 +12,12 @@ const SERVICES = [
 const About = (): ReactElement => {
   return (
     <>
-      <SEOHead title="황수영 소개 | 황수영 운세" description="황수영의 운세 플랫폼 소개 및 서비스 안내" />
+      <SEOHead title="플랫폼 소개 | 운세 플랫폼" description="사주·별자리·MBTI 운세 플랫폼 소개 및 서비스 안내" />
 
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">About · 소개</div>
-          <h2>황수영 소개</h2>
+          <h2>플랫폼 소개</h2>
           <p>사주·별자리·MBTI 운세 플랫폼</p>
         </div>
       </section>
@@ -35,13 +35,13 @@ const About = (): ReactElement => {
                 width: '160px', height: '160px', borderRadius: '50%',
                 background: 'linear-gradient(135deg, var(--ink-surface), var(--ink-surface-hover))',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--gold)', fontSize: '56px', fontWeight: 800,
+                color: 'var(--gold)', fontSize: '40px', fontWeight: 800,
               }}>
-                황
+                ✦
               </div>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--navy-800)' }}>황수영</div>
-                <div style={{ fontSize: '13px', color: 'var(--gold)', fontWeight: 600, marginTop: '2px' }}>운세 플랫폼 운영자</div>
+                <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--navy-800)' }}>운세 플랫폼</div>
+                <div style={{ fontSize: '13px', color: 'var(--gold)', fontWeight: 600, marginTop: '2px' }}>사주·별자리·MBTI 운영</div>
               </div>
             </div>
             <div>

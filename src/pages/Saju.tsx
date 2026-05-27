@@ -14,7 +14,7 @@ const OHAENG = [
 
 const Saju = (): ReactElement => (
   <>
-    <SEOHead title="사주 풀이 | 황수영 운세" description="태어난 연·월·일·시 네 기둥으로 타고난 기질과 운명의 흐름을 알아보세요" />
+    <SEOHead title="사주 풀이 | 운세 플랫폼" description="태어난 연·월·일·시 네 기둥으로 타고난 기질과 운명의 흐름을 알아보세요" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Saju · 四柱</div>

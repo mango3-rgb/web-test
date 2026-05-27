@@ -22,7 +22,7 @@ const SajuDaily = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="오늘의 운세 | 황수영 운세" description="12간지별 오늘의 운세를 확인해보세요" />
+      <SEOHead title="오늘의 운세 | 운세 플랫폼" description="12간지별 오늘의 운세를 확인해보세요" />
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">Daily Fortune · 오늘의 운세</div>

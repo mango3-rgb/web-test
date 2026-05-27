@@ -3,30 +3,30 @@ import type { SiteConfig } from '../types';
 const site: SiteConfig = {
   id: 'mystic',
 
-  name: '황수영 운세',
+  name: '운세 플랫폼',
   nameKo: '사주·별자리·MBTI 운세',
-  description: '사주팔자, 별자리, MBTI로 당신의 운명과 성격을 알아보세요. 황수영의 운세 플랫폼.',
+  description: '사주팔자, 별자리, MBTI로 당신의 운명과 성격을 알아보세요. 사주·별자리·MBTI 운세 플랫폼.',
   url: 'https://mango3-rgb.github.io/web-test',
 
   dbPrefix: 'mystic_',
 
   parentSite: {
-    name: '황수영 운세',
+    name: '운세 플랫폼',
     url: 'https://mango3-rgb.github.io/web-test'
   },
 
   brand: {
     parts: [
-      { text: '황수영', className: 'brand-dream' },
-      { text: ' 운세', className: 'brand-it' },
+      { text: '운세', className: 'brand-dream' },
+      { text: ' 플랫폼', className: 'brand-it' },
     ]
   },
 
   themeColor: '#1B2A4A',
 
   company: {
-    name: '황수영',
-    ceo: '황수영',
+    name: '운세 플랫폼',
+    ceo: '운영자',
     bizNumber: '',
     address: '',
     email: 'mango3_sy@kdn.com',
@@ -77,6 +77,7 @@ const site: SiteConfig = {
       dropdown: [
         { path: '/mbti', labelKey: 'site.nav.mbtiTypes' },
         { path: '/mbti/compatibility', labelKey: 'site.nav.mbtiCompatibility' },
+        { path: '/mbti/test', labelKey: 'site.nav.mbtiTest' },
       ]
     },
     {

@@ -23,7 +23,7 @@ const ELEMENT_COLOR: Record<string, string> = {
 
 const Horoscope = (): ReactElement => (
   <>
-    <SEOHead title="12별자리 | 황수영 운세" description="12별자리의 특성과 원소별 분류를 알아보세요" />
+    <SEOHead title="12별자리 | 운세 플랫폼" description="12별자리의 특성과 원소별 분류를 알아보세요" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Horoscope · 별자리</div>
