@@ -1,7 +1,6 @@
 {
   "name": "kdn-vibe-coding",
-  "homepage": "https://kdn.dreamitbiz.com",
-  "private": true,
+"private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {

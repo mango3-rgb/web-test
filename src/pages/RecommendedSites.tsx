@@ -13,7 +13,7 @@ const DREAMIT_SITES: SiteLink[] = [
   {
     name: 'KDN Vibe Coding',
     nameEn: 'KDN 바이브코딩 교육',
-    url: 'https://kdn.dreamitbiz.com',
+    url: 'https://mango3-rgb.github.io/web-test',
     desc: 'KDN 직원을 위한 바이브코딩 풀스택 웹 개발 교육 플랫폼. 3일 21시간 커리큘럼, 강의안, 프롬프트 학습을 제공합니다.',
     tag: '현재 사이트',
   },

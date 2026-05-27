@@ -10,7 +10,7 @@ const site: SiteConfig = {
   name: 'KDN Vibe Coding',
   nameKo: '바이브코딩으로 풀스택 웹 개발',
   description: 'KDN 직원 대상 바이브코딩을 활용한 프론트엔드·백엔드·배포 전 과정 교육 플랫폼 (3일, 21시간)',
-  url: 'https://kdn.dreamitbiz.com',
+  url: 'https://mango3-rgb.github.io/web-test',
 
   dbPrefix: 'kdn_',
 

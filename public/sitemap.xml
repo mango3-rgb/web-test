@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/</loc>
+    <loc>https://mango3-rgb.github.io/web-test/</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,7 +10,7 @@
 
   <!-- Books (main section) -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/books</loc>
+    <loc>https://mango3-rgb.github.io/web-test/books</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -18,7 +18,7 @@
 
   <!-- Shop (main section) -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/shop</loc>
+    <loc>https://mango3-rgb.github.io/web-test/shop</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -26,7 +26,7 @@
 
   <!-- Books - IT (sub-page) -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/books/it</loc>
+    <loc>https://mango3-rgb.github.io/web-test/books/it</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -34,7 +34,7 @@
 
   <!-- Books - Education (sub-page) -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/books/education</loc>
+    <loc>https://mango3-rgb.github.io/web-test/books/education</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -42,7 +42,7 @@
 
   <!-- Login -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/login</loc>
+    <loc>https://mango3-rgb.github.io/web-test/login</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -50,7 +50,7 @@
 
   <!-- Register -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/register</loc>
+    <loc>https://mango3-rgb.github.io/web-test/register</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -58,7 +58,7 @@
 
   <!-- Cart -->
   <url>
-    <loc>https://kdn.dreamitbiz.com/cart</loc>
+    <loc>https://mango3-rgb.github.io/web-test/cart</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
