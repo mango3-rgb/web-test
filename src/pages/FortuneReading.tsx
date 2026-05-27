@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import SEOHead from '../components/SEOHead';
 import type { ReactElement } from 'react';
+import {
+  PERIODS, PERIOD_LABELS, FAREAS, IS_LIFE,
+  areaStars, areaText, overviewText, totalStars,
+} from '../utils/fortuneEngine';
+import type { Period } from '../utils/fortuneEngine';
 
 type Energy = { money: number; love: number; career: number; health: number };
 
@@ -56,48 +61,6 @@ const MBTI_LIST: { id: string; nick: string; trait: string; e: Energy }[] = [
   { id: 'ESFP', nick: '연예인',    trait: '즐거움을 추구하는',     e: { money: 1, love: 2, career: 1, health: 2 } },
 ];
 
-const toStars = (score: number): number => {
-  if (score <= 1) return 2;
-  if (score <= 3) return 3;
-  if (score <= 4) return 4;
-  return 5;
-};
-
-const STAR_TEXTS: Record<string, Record<number, string>> = {
-  money: {
-    5: '투자와 새로운 수익 기회가 열립니다. 과감하게 도전하세요.',
-    4: '꾸준한 노력이 재정적 성과로 이어집니다. 저축도 병행하세요.',
-    3: '안정적인 재물 흐름입니다. 무리한 지출은 자제하세요.',
-    2: '재물 관리에 신중하세요. 큰 지출이나 투자는 미루세요.',
-  },
-  love: {
-    5: '인연의 기운이 강합니다. 마음을 표현할 절호의 시기입니다.',
-    4: '따뜻한 인간관계가 풍성해집니다. 소중한 사람에게 먼저 다가가세요.',
-    3: '평온한 관계가 유지됩니다. 작은 배려 한마디가 큰 힘이 됩니다.',
-    2: '감정 표현에 주의하세요. 오해가 생기지 않도록 소통하세요.',
-  },
-  career: {
-    5: '커리어에 큰 도약의 기회가 옵니다. 새로운 도전을 두려워 마세요.',
-    4: '능력을 인정받는 시기입니다. 자신감 있게 의견을 표현하세요.',
-    3: '안정적인 업무 흐름이 이어집니다. 꾸준함이 최고의 전략입니다.',
-    2: '직업적 변화는 신중히. 기반을 다지는 데 집중하세요.',
-  },
-  health: {
-    5: '활력이 넘치는 시기입니다. 새로운 운동 루틴을 시작하세요.',
-    4: '건강 상태가 양호합니다. 규칙적인 생활 습관을 유지하세요.',
-    3: '건강 관리에 관심을 기울이세요. 충분한 수면이 중요합니다.',
-    2: '과로를 피하고 충분히 쉬세요. 스트레스 관리가 필요합니다.',
-  },
-};
-
-const OVERALL_TEXT = [
-  '이번 시기는 여러 면에서 조심스럽게 행동하고 내실을 다지는 것이 현명합니다.',
-  '몇 가지 영역에서 주의가 필요하지만 전반적으로 안정적인 흐름입니다.',
-  '전반적으로 안정된 운기 속에 있습니다. 꾸준한 노력이 결실을 맺습니다.',
-  '이번 시기는 전반적으로 좋은 운기가 흐릅니다. 적극적으로 나아가세요.',
-  '매우 강한 운기가 집중됩니다. 중요한 결정을 내리기에 최적의 시기입니다.',
-];
-
 interface FortuneResult {
   jiji: typeof JIJI[0];
   sign: typeof SIGNS[0];
@@ -113,15 +76,6 @@ const Stars = ({ count }: { count: number }) => (
     ))}
   </span>
 );
-
-const AREAS = [
-  { key: 'money',  icon: '💰', label: '재물운' },
-  { key: 'love',   icon: '💕', label: '사랑운' },
-  { key: 'career', icon: '📈', label: '직업운' },
-  { key: 'health', icon: '💪', label: '건강운' },
-] as const;
-
-type AreaKey = 'money' | 'love' | 'career' | 'health';
 
 const selectStyle = {
   padding: '10px 14px',
@@ -148,11 +102,33 @@ const labelStyle = {
   marginBottom: '6px',
 } as const;
 
+const tabSt = (active: boolean): React.CSSProperties => ({
+  padding: '7px 14px', fontSize: '12px', fontWeight: 700, border: 'none', cursor: 'pointer',
+  borderBottom: active ? '2px solid var(--gold)' : '2px solid transparent',
+  background: 'none', color: active ? 'var(--gold)' : 'var(--text-secondary)', whiteSpace: 'nowrap',
+});
+
+const JIJI_LIFE: Record<string, { early: string; middle: string; late: string }> = {
+  ja:  { early: '총명하고 재치 있는 성격으로 어린 시절부터 두각을 나타냅니다.', middle: '날카로운 판단력과 추진력으로 직업적 성과와 재물운이 좋습니다.', late: '지혜롭고 원만한 성품으로 주변의 존경을 받으며 만족스러운 여생을 보냅니다.' },
+  ch:  { early: '성실하고 인내심 강한 성격으로 신뢰받는 인물로 성장합니다.', middle: '성실함의 결실로 안정적인 직업과 경제력을 갖춥니다.', late: '평생 쌓아온 신뢰와 덕망으로 건강하고 평화로운 말년을 보냅니다.' },
+  in:  { early: '용감하고 패기 넘치는 에너지로 도전을 두려워하지 않습니다.', middle: '과감한 결단력으로 재물과 명예 모두 상승하는 전성기입니다.', late: '강인한 체력으로 활동적인 노년을 보내며 후배들에게 용기를 나눠줍니다.' },
+  myo: { early: '섬세하고 감수성 풍부한 성격으로 예술적 재능이 발현됩니다.', middle: '온화한 성품으로 협력과 네트워크에서 강점을 발휘합니다.', late: '우아하고 품위 있는 노년에 자녀들로부터 깊은 사랑을 받습니다.' },
+  jin: { early: '카리스마와 자신감으로 일찍부터 주목받으며 성장합니다.', middle: '강력한 리더십으로 직업적 정점에 서며 재물과 명예가 따릅니다.', late: '풍요롭고 위엄 있는 말년에 자손들에게 큰 유산을 남깁니다.' },
+  sa:  { early: '직관력이 뛰어나고 신중한 성격으로 학문적 성취를 이룹니다.', middle: '날카로운 통찰력으로 전문 분야에서 깊은 전문성을 쌓습니다.', late: '내면의 평화와 지혜로 주변에서 존경받는 인생 선배가 됩니다.' },
+  o:   { early: '활발하고 정열적인 에너지로 친구들의 중심이 됩니다.', middle: '열정적인 추진력으로 자신만의 길을 개척하며 성공합니다.', late: '활동적이고 건강한 노년에 여행과 취미로 활기찬 여생을 즐깁니다.' },
+  mi:  { early: '예술적 감수성과 창의성으로 재능을 발휘합니다.', middle: '배려심으로 가정과 직업 모두 화목한 중년을 보냅니다.', late: '평화롭고 예술적인 노년에 가족들의 사랑을 받습니다.' },
+  sin: { early: '재치와 영리함으로 다양한 분야에서 능력을 발휘합니다.', middle: '유연한 사고로 변화하는 환경에서도 성공적으로 적응합니다.', late: '풍부한 경험과 지식으로 존경받는 활동적인 노년을 보냅니다.' },
+  yu:  { early: '꼼꼼하고 부지런한 성격으로 높은 성취를 이룹니다.', middle: '전문성으로 직업적 정점에 서며 안정적인 경제 기반을 마련합니다.', late: '전문성과 성실함으로 인정받으며 체계적인 활기찬 노년을 삽니다.' },
+  sul: { early: '의리 있고 정직한 성품으로 신뢰를 쌓아갑니다.', middle: '강한 의리와 책임감으로 가정과 직업 모두에서 안정을 이룹니다.', late: '신뢰와 덕망으로 가족과 함께하는 행복한 노년을 보냅니다.' },
+  hae: { early: '낙천적이고 관대한 성격으로 주변에서 사랑받습니다.', middle: '풍요로운 재물운과 넓은 인간관계로 풍성한 중년을 보냅니다.', late: '풍요롭고 여유로운 노년에 가족들에게 둘러싸여 행복하게 삽니다.' },
+};
+
 const FortuneReading = (): ReactElement => {
   const [birthYear, setBirthYear] = useState('');
   const [sign, setSign] = useState('');
   const [mbti, setMbti] = useState('');
   const [result, setResult] = useState<FortuneResult | null>(null);
+  const [period, setPeriod] = useState<Period>('daily');
 
   const yearNum = parseInt(birthYear, 10);
   const validYear = birthYear.length === 4 && !isNaN(yearNum) && yearNum >= 1900 && yearNum <= 2099;
@@ -252,47 +228,83 @@ const FortuneReading = (): ReactElement => {
           ) : (
             <div>
               {/* Input summary */}
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '12px' }}>
                 {[
                   `${result.birthYear}년 ${result.jiji.name}${result.jiji.animal}띠`,
                   `${result.sign.symbol} ${result.sign.name}`,
                   `${result.mbti.id} (${result.mbti.nick})`,
                 ].map((label) => (
-                  <span key={label} style={{ padding: '5px 14px', background: 'var(--navy-50)', border: '1px solid var(--line)', borderRadius: '20px', fontSize: '13px', fontWeight: 700, color: 'var(--navy-800)' }}>
+                  <span key={label} style={{ padding: '4px 12px', background: 'var(--navy-50)', border: '1px solid var(--line)', borderRadius: '20px', fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>
                     {label}
                   </span>
                 ))}
               </div>
 
-              {/* Fortune areas 2×2 */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
-                {AREAS.map(({ key, icon, label }) => {
-                  const score = result[key as AreaKey];
-                  const stars = toStars(score);
-                  return (
-                    <div key={key} style={{ padding: '16px 20px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '20px' }}>{icon}</span>
-                        <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
-                        <span style={{ marginLeft: 'auto' }}><Stars count={stars} /></span>
-                      </div>
-                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                        {STAR_TEXTS[key][stars]}
+              {/* Period tabs */}
+              <div style={{ display: 'flex', borderBottom: '1px solid var(--line)', marginBottom: '14px', overflowX: 'auto' }}>
+                {PERIODS.map(p => <button key={p} style={tabSt(period === p)} onClick={() => setPeriod(p)}>{PERIOD_LABELS[p]}</button>)}
+              </div>
+
+              {/* Time-based fortune (일/월/년) */}
+              {!IS_LIFE(period) ? (() => {
+                const baseKey = `${result.jiji.id}-${result.sign.id}-${result.mbti.id}`;
+                const total = totalStars(baseKey, period);
+                return (
+                  <>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '10px' }}>
+                      {FAREAS.map(({ key, icon, label }) => {
+                        const s = areaStars(baseKey, period, key);
+                        return (
+                          <div key={key} style={{ padding: '14px 16px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                              <span style={{ fontSize: '18px' }}>{icon}</span>
+                              <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy-800)' }}>{label}</span>
+                              <span style={{ marginLeft: 'auto' }}><Stars count={s} /></span>
+                            </div>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{areaText(key, s)}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div style={{ padding: '10px 16px', background: 'var(--navy-50)', borderLeft: '3px solid var(--gold)', borderRadius: '0 8px 8px 0', marginBottom: '14px', fontSize: '13px', color: 'var(--navy-800)' }}>
+                      {overviewText(period, total)}
+                    </div>
+                  </>
+                );
+              })() : (() => {
+                /* Life period (초년/중년/말년) */
+                const lk = period as 'early' | 'middle' | 'late';
+                const lifeLabel = { early: '초년 (출생~30세)', middle: '중년 (31~60세)', late: '말년 (61세 이후)' }[lk];
+                const lifeText = JIJI_LIFE[result.jiji.id]?.[lk] ?? '';
+                const baseKey = `${result.jiji.id}-${result.sign.id}-${result.mbti.id}`;
+                return (
+                  <>
+                    <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px' }}>{lifeLabel}</div>
+                    <div style={{ padding: '14px 18px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px', marginBottom: '10px' }}>
+                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--navy-800)', lineHeight: 1.9 }}>
+                        {lifeText} {result.sign.name}의 <strong>{result.sign.trait}</strong> 기질과 {result.mbti.id}({result.mbti.nick})의 성격이 더해져 독특한 인생 흐름을 만들어냅니다.
                       </p>
                     </div>
-                  );
-                })}
-              </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                      {FAREAS.map(({ key, icon, label }) => {
+                        const s = areaStars(baseKey, period, key);
+                        return (
+                          <div key={key} style={{ padding: '10px 12px', background: 'var(--navy-50)', borderRadius: '10px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                              <span>{icon}</span>
+                              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--navy-800)' }}>{label}</span>
+                              <span style={{ marginLeft: 'auto' }}><Stars count={s} /></span>
+                            </div>
+                            <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{areaText(key, s)}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                );
+              })()}
 
-              {/* Narrative */}
-              <div style={{ padding: '16px 20px', background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', borderRadius: '0 10px 10px 0', marginBottom: '20px', fontSize: '13px', lineHeight: 1.75, color: 'var(--navy-800)' }}>
-                <strong>{result.jiji.trait}</strong> {result.jiji.animal}띠가{' '}
-                <strong>{result.sign.trait}</strong> {result.sign.name}의 에너지를 만나고,{' '}
-                {result.mbti.id}({result.mbti.nick})의 성격이 더해져 독특한 운의 흐름을 만들어냅니다.{' '}
-                {OVERALL_TEXT[Math.min(4, Math.floor(result.total / 5))]}
-              </div>
-
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ textAlign: 'center', marginTop: '14px' }}>
                 <button className="btn btn-ghost" onClick={reset}>다시 측정하기</button>
               </div>
             </div>
