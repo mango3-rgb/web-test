@@ -89,6 +89,11 @@ const site: SiteConfig = {
         { path: '/board/discussion', labelKey: 'site.nav.boardDiscussion' },
       ]
     },
+    {
+      labelKey: 'site.nav.fortune',
+      path: '/fortune',
+      activePath: '/fortune',
+    },
   ],
 
   footerLinks: [

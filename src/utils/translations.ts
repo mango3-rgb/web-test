@@ -220,7 +220,8 @@ export const translations: Record<string, Record<string, unknown>> = {
         aboutConsult: '상담 안내',
         board: '게시판',
         boardInquiry: '문의 게시판',
-        boardDiscussion: '토론 게시판'
+        boardDiscussion: '토론 게시판',
+        fortune: '나의 운세'
       },
       home: {
         title: 'KDN Vibe Coding',
@@ -451,7 +452,8 @@ export const translations: Record<string, Record<string, unknown>> = {
         aboutConsult: 'Consultation',
         board: 'Board',
         boardInquiry: 'Inquiry',
-        boardDiscussion: 'Discussion'
+        boardDiscussion: 'Discussion',
+        fortune: 'My Fortune'
       },
       home: {
         title: 'KDN Vibe Coding',

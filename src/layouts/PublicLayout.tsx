@@ -16,6 +16,7 @@ import Consult from '../pages/Consult';
 import InquiryBoard from '../pages/InquiryBoard';
 import DiscussionBoard from '../pages/DiscussionBoard';
 import MbtiTest from '../pages/MbtiTest';
+import FortuneReading from '../pages/FortuneReading';
 
 const PublicLayout = (): ReactElement => (
   <>
@@ -41,6 +42,8 @@ const PublicLayout = (): ReactElement => (
         <Route path="/board/discussion" element={<DiscussionBoard />} />
 
         <Route path="/mbti/test" element={<MbtiTest />} />
+
+        <Route path="/fortune" element={<FortuneReading />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
