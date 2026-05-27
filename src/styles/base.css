@@ -154,25 +154,48 @@ html[data-color="orange"] {
 
 /* Arctic Night Sky */
 html[data-color="arctic"] {
-    --primary-blue: #0A1B30;
-    --primary-blue-dark: #060F1C;
-    --primary-blue-light: #00CFFF;
+    --primary-blue: #00CFFF;
+    --primary-blue-dark: #0099CC;
+    --primary-blue-light: #67E8FF;
     --gold: #00CFFF;
-    --navy-900: #030A14;
-    --navy-800: #060F1C;
-    --navy-700: #0A1B30;
-    --navy-600: #0E2847;
+    --navy-900: #E0F7FF;
+    --navy-800: #BDE8F7;
+    --navy-700: #7DCEF0;
+    --navy-600: #4AB8E8;
     --navy-500: #1A4060;
-    --navy-400: #2E6E8E;
-    --navy-300: #60B8D4;
-    --navy-200: #A8DFF0;
-    --navy-100: #D4F0FB;
-    --navy-50:  #EDF8FF;
-    --primary-gradient: linear-gradient(135deg, #0A1B30 0%, #00CFFF 100%);
+    --navy-400: #0E2847;
+    --navy-300: #0A1B30;
+    --navy-200: #060F1C;
+    --navy-100: #030A14;
+    --navy-50:  #050D1A;
+    /* 배경을 미드나잇으로 강제 */
+    --bg-white: #060F1C;
+    --bg-light-gray: #0A1B30;
+    --bg-medium-gray: #0E2847;
+    --bg-primary: #060F1C;
+    --text-primary: #E0F7FF;
+    --text-secondary: #7DCEF0;
+    --text-light: #4AB8E8;
+    --border-light: #0E2847;
+    --border-medium: #1A4060;
+    --border-color: #0E2847;
+    --ink: #E0F7FF;
+    --ink-soft: #7DCEF0;
+    --ink-surface: #060F1C;
+    --ink-surface-hover: #0A1B30;
+    --line: #0E2847;
+    --line-strong: #1A4060;
+    --shadow-sm: 0 1px 3px rgba(0, 207, 255, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 207, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 25px rgba(0, 207, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 40px rgba(0, 207, 255, 0.12), 0 8px 16px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(6, 15, 28, 0.90);
+    --glass-border: rgba(0, 207, 255, 0.15);
+    --primary-gradient: linear-gradient(135deg, #0099CC 0%, #00CFFF 100%);
     --accent-gradient: linear-gradient(135deg, #060F1C 0%, #0A1B30 50%, #00CFFF 100%);
     --hero-bg: linear-gradient(135deg, #030A14 0%, #060F1C 35%, #0A1B30 65%, #0E2847 100%);
     --hero-bg-dark: linear-gradient(135deg, #030A14 0%, #050D1A 45%, #071220 100%);
-    --highlight-gradient: linear-gradient(135deg, #60B8D4 0%, #A8DFF0 50%, #FFFFFF 100%);
+    --highlight-gradient: linear-gradient(135deg, #60B8D4 0%, #A8DFF0 50%, #E0F7FF 100%);
 }
 
 html {
