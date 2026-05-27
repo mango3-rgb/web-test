@@ -150,7 +150,7 @@ const SajuDaily = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="사주팔자 운세 | 운세 플랫폼" description="생년월일시로 사주팔자를 계산하고 기간별 운세를 확인하세요" />
+      <SEOHead title="사주팔자 운세 | Suyoung's Secret" description="생년월일시로 사주팔자를 계산하고 기간별 운세를 확인하세요" />
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">Saju · 사주 운세</div>

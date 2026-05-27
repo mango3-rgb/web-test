@@ -79,7 +79,7 @@ const Navbar = (): ReactElement => {
             <div className="logo">
               <Link to="/">
                 <span className="brand-mark">
-                  운세<span className="brand-accent"> 플랫폼</span>
+                  Suyoung's<span className="brand-accent"> Secret</span>
                 </span>
               </Link>
             </div>

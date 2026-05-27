@@ -50,7 +50,7 @@ const Home = (): ReactElement => {
             marginBottom: '20px',
           }}>
             운명을 읽는<br />
-            <span style={{ color: 'var(--gold)' }}>운세 플랫폼</span>
+            <span style={{ color: 'var(--gold)' }}>Suyoung's Secret</span>
           </h1>
 
           {/* Subtitle */}

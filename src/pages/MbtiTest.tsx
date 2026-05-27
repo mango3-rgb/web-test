@@ -115,7 +115,7 @@ const MbtiTest = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="MBTI 테스트 | 운세 플랫폼" description="24문항으로 알아보는 나의 MBTI 성격 유형 테스트" />
+      <SEOHead title="MBTI 테스트 | Suyoung's Secret" description="24문항으로 알아보는 나의 MBTI 성격 유형 테스트" />
 
       <section className="page-header-ed">
         <div className="container">

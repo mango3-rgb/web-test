@@ -18,7 +18,7 @@ const SECTIONS = [
 
 const Consult = (): ReactElement => (
   <>
-    <SEOHead title="상담 안내 | 운세 플랫폼" description="사주·별자리·MBTI 이메일 상담 안내" />
+    <SEOHead title="상담 안내 | Suyoung's Secret" description="사주·별자리·MBTI 이메일 상담 안내" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Consultation · 상담</div>

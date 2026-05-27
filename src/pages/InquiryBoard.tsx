@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 
 const InquiryBoard = (): ReactElement => (
   <>
-    <SEOHead title="문의 게시판 | 운세 플랫폼" description="궁금한 점을 남겨주세요" />
+    <SEOHead title="문의 게시판 | Suyoung's Secret" description="궁금한 점을 남겨주세요" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Inquiry · 문의</div>

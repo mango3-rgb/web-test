@@ -153,7 +153,7 @@ const FortuneReading = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="나의 운세 | 운세 플랫폼" description="띠·별자리·MBTI 종합 운세 측정" />
+      <SEOHead title="나의 운세 | Suyoung's Secret" description="띠·별자리·MBTI 종합 운세 측정" />
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">Fortune · 종합 운세</div>

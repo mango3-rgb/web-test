@@ -56,7 +56,7 @@ const Horoscope = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="별자리 운세 | 운세 플랫폼" description="12별자리 일·월·년·초년·중년·말년 운세" />
+      <SEOHead title="별자리 운세 | Suyoung's Secret" description="12별자리 일·월·년·초년·중년·말년 운세" />
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">Horoscope · 별자리 운세</div>

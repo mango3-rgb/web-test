@@ -30,7 +30,7 @@ const TYPES = [
 
 const Mbti = (): ReactElement => (
   <>
-    <SEOHead title="MBTI 16가지 유형 | 운세 플랫폼" description="MBTI 16가지 성격 유형과 특성을 알아보세요" />
+    <SEOHead title="MBTI 16가지 유형 | Suyoung's Secret" description="MBTI 16가지 성격 유형과 특성을 알아보세요" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">MBTI · 성격 유형</div>

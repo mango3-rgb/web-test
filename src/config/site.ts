@@ -3,29 +3,29 @@ import type { SiteConfig } from '../types';
 const site: SiteConfig = {
   id: 'mystic',
 
-  name: '운세 플랫폼',
+  name: "Suyoung's Secret",
   nameKo: '사주·별자리·MBTI 운세',
-  description: '사주팔자, 별자리, MBTI로 당신의 운명과 성격을 알아보세요. 사주·별자리·MBTI 운세 플랫폼.',
+  description: "사주팔자, 별자리, MBTI로 당신의 운명과 성격을 알아보세요. Suyoung's Secret.",
   url: 'https://mango3-rgb.github.io/web-test',
 
   dbPrefix: 'mystic_',
 
   parentSite: {
-    name: '운세 플랫폼',
+    name: "Suyoung's Secret",
     url: 'https://mango3-rgb.github.io/web-test'
   },
 
   brand: {
     parts: [
-      { text: '운세', className: 'brand-dream' },
-      { text: ' 플랫폼', className: 'brand-it' },
+      { text: "Suyoung's", className: 'brand-dream' },
+      { text: ' Secret', className: 'brand-it' },
     ]
   },
 
   themeColor: '#1B2A4A',
 
   company: {
-    name: '운세 플랫폼',
+    name: "Suyoung's Secret",
     ceo: '운영자',
     bizNumber: '',
     address: '',
@@ -55,10 +55,6 @@ const site: SiteConfig = {
       labelKey: 'site.nav.fortune',
       path: '/fortune',
       activePath: '/fortune',
-      dropdown: [
-        { path: '/fortune', labelKey: 'site.nav.fortuneReading' },
-        { path: '/taro', labelKey: 'site.nav.taro' },
-      ]
     },
     {
       labelKey: 'site.nav.saju',
@@ -78,6 +74,11 @@ const site: SiteConfig = {
         { path: '/horoscope', labelKey: 'site.nav.horoscopeSign' },
         { path: '/horoscope/compatibility', labelKey: 'site.nav.horoscopeCompatibility' },
       ]
+    },
+    {
+      labelKey: 'site.nav.taro',
+      path: '/taro',
+      activePath: '/taro',
     },
     {
       labelKey: 'site.nav.mbti',

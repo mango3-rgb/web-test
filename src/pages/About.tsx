@@ -12,13 +12,13 @@ const SERVICES = [
 const About = (): ReactElement => {
   return (
     <>
-      <SEOHead title="플랫폼 소개 | 운세 플랫폼" description="사주·별자리·MBTI 운세 플랫폼 소개 및 서비스 안내" />
+      <SEOHead title="플랫폼 소개 | Suyoung's Secret" description="사주·별자리·MBTI Suyoung's Secret 소개 및 서비스 안내" />
 
       <section className="page-header-ed">
         <div className="container">
           <div className="eyebrow">About · 소개</div>
           <h2>플랫폼 소개</h2>
-          <p>사주·별자리·MBTI 운세 플랫폼</p>
+          <p>사주·별자리·MBTI Suyoung's Secret</p>
         </div>
       </section>
 
@@ -40,7 +40,7 @@ const About = (): ReactElement => {
                 ✦
               </div>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--navy-800)' }}>운세 플랫폼</div>
+                <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--navy-800)' }}>Suyoung's Secret</div>
                 <div style={{ fontSize: '13px', color: 'var(--gold)', fontWeight: 600, marginTop: '2px' }}>사주·별자리·MBTI 운영</div>
               </div>
             </div>

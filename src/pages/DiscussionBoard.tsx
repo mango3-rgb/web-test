@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 
 const DiscussionBoard = (): ReactElement => (
   <>
-    <SEOHead title="토론 게시판 | 운세 플랫폼" description="사주·별자리·MBTI에 대한 이야기를 나눠요" />
+    <SEOHead title="토론 게시판 | Suyoung's Secret" description="사주·별자리·MBTI에 대한 이야기를 나눠요" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Discussion · 토론</div>

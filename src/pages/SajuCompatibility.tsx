@@ -22,7 +22,7 @@ const Stars = ({ level }: { level: number }) => (
 
 const SajuCompatibility = (): ReactElement => (
   <>
-    <SEOHead title="사주 궁합 | 운세 플랫폼" description="음양오행으로 보는 사주 궁합 안내" />
+    <SEOHead title="사주 궁합 | Suyoung's Secret" description="음양오행으로 보는 사주 궁합 안내" />
     <section className="page-header-ed">
       <div className="container">
         <div className="eyebrow">Compatibility · 궁합</div>
