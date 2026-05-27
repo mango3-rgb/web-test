@@ -15,7 +15,7 @@ const COMPAT = [
 const Stars = ({ level }: { level: number }) => (
   <span style={{ display: 'flex', gap: '3px', flexShrink: 0 }}>
     {[1,2,3,4,5].map((n) => (
-      <span key={n} style={{ width: '10px', height: '10px', borderRadius: '50%', background: n <= level ? 'var(--gold)' : 'var(--line)', display: 'inline-block' }} />
+      <span key={n} style={{ width: '8px', height: '8px', borderRadius: '50%', background: n <= level ? 'var(--gold)' : 'var(--line)', display: 'inline-block' }} />
     ))}
   </span>
 );
@@ -32,16 +32,16 @@ const HoroscopeCompatibility = (): ReactElement => (
     </section>
     <section className="section-ed">
       <div className="container">
-        <div style={{ display: 'grid', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           {COMPAT.map((c, i) => (
-            <div key={i} style={{ padding: '24px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: 'var(--radius)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px', flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 700, color: 'var(--navy-800)', fontSize: '15px' }}>{c.a}</span>
-                <span style={{ color: 'var(--gold)', fontWeight: 700 }}>×</span>
-                <span style={{ fontWeight: 700, color: 'var(--navy-800)', fontSize: '15px' }}>{c.b}</span>
+            <div key={i} style={{ padding: '14px 16px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                <span style={{ fontWeight: 700, color: 'var(--navy-800)', fontSize: '13px' }}>{c.a}</span>
+                <span style={{ color: 'var(--gold)', fontWeight: 700, fontSize: '12px' }}>×</span>
+                <span style={{ fontWeight: 700, color: 'var(--navy-800)', fontSize: '13px' }}>{c.b}</span>
                 <span style={{ marginLeft: 'auto' }}><Stars level={c.level} /></span>
               </div>
-              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{c.desc}</p>
+              <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{c.desc}</p>
             </div>
           ))}
         </div>

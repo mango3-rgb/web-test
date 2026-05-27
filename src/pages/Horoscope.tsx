@@ -33,22 +33,22 @@ const Horoscope = (): ReactElement => (
     </section>
     <section className="section-ed">
       <div className="container">
-        <div style={{ background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', padding: '20px 28px', borderRadius: '0 12px 12px 0', marginBottom: '40px', lineHeight: 1.8 }}>
+        <div style={{ background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', padding: '10px 16px', borderRadius: '0 8px 8px 0', marginBottom: '14px', fontSize: '13px', lineHeight: 1.6 }}>
           서양 점성술에서 <strong>태양 별자리</strong>는 태어난 날 태양이 위치한 별자리를 말합니다.
-          4가지 원소(불·흙·바람·물)로 분류되며, 각 원소별로 비슷한 성향을 공유합니다.
+          4가지 원소(불·흙·바람·물)로 분류됩니다.
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', marginBottom: '40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '10px', marginBottom: '16px' }}>
           {SIGNS.map((s) => (
-            <div key={s.name} style={{ padding: '24px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '32px', lineHeight: 1 }}>{s.symbol}</span>
+            <div key={s.name} style={{ padding: '14px 16px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                <span style={{ fontSize: '24px', lineHeight: 1 }}>{s.symbol}</span>
                 <div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--navy-800)' }}>{s.name}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{s.en} · {s.dates}</div>
+                  <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--navy-800)' }}>{s.name}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{s.en} · {s.dates}</div>
                 </div>
-                <span style={{ marginLeft: 'auto', fontSize: '11px', fontWeight: 700, color: '#fff', background: ELEMENT_COLOR[s.element], padding: '3px 8px', borderRadius: '20px' }}>{s.element}</span>
+                <span style={{ marginLeft: 'auto', fontSize: '10px', fontWeight: 700, color: '#fff', background: ELEMENT_COLOR[s.element], padding: '2px 7px', borderRadius: '20px' }}>{s.element}</span>
               </div>
-              <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{s.trait}</p>
+              <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{s.trait}</p>
             </div>
           ))}
         </div>

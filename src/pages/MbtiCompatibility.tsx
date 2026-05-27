@@ -15,7 +15,7 @@ const COMPAT = [
 const Stars = ({ level }: { level: number }) => (
   <span style={{ display: 'flex', gap: '3px', flexShrink: 0 }}>
     {[1,2,3,4,5].map((n) => (
-      <span key={n} style={{ width: '10px', height: '10px', borderRadius: '50%', background: n <= level ? 'var(--gold)' : 'var(--line)', display: 'inline-block' }} />
+      <span key={n} style={{ width: '8px', height: '8px', borderRadius: '50%', background: n <= level ? 'var(--gold)' : 'var(--line)', display: 'inline-block' }} />
     ))}
   </span>
 );
@@ -32,17 +32,17 @@ const MbtiCompatibility = (): ReactElement => (
     </section>
     <section className="section-ed">
       <div className="container">
-        <div style={{ background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', padding: '20px 28px', borderRadius: '0 12px 12px 0', marginBottom: '40px', lineHeight: 1.8 }}>
-          MBTI 궁합은 절대적이지 않습니다. 어떤 유형이든 서로 <strong>이해와 배려</strong>가 있다면 좋은 관계를 유지할 수 있습니다. 아래 내용은 일반적인 성향에 따른 참고용입니다.
+        <div style={{ background: 'var(--navy-50)', borderLeft: '4px solid var(--gold)', padding: '10px 16px', borderRadius: '0 8px 8px 0', marginBottom: '12px', fontSize: '13px', lineHeight: 1.6 }}>
+          MBTI 궁합은 절대적이지 않습니다. 어떤 유형이든 <strong>이해와 배려</strong>가 있다면 좋은 관계를 유지할 수 있습니다.
         </div>
-        <div style={{ display: 'grid', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           {COMPAT.map((c, i) => (
-            <div key={i} style={{ padding: '24px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: 'var(--radius)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
-                <span style={{ fontWeight: 800, color: 'var(--gold)', fontSize: '17px' }}>{c.pair}</span>
+            <div key={i} style={{ padding: '12px 14px', background: 'var(--bg-white)', border: '1px solid var(--line)', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                <span style={{ fontWeight: 800, color: 'var(--gold)', fontSize: '14px' }}>{c.pair}</span>
                 <span style={{ marginLeft: 'auto' }}><Stars level={c.level} /></span>
               </div>
-              <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{c.desc}</p>
+              <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{c.desc}</p>
             </div>
           ))}
         </div>
