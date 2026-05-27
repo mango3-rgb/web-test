@@ -51,7 +51,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): ReactElement =>
 
   const [colorTheme, setColorTheme] = useState<ColorTheme>(() => {
     const saved = getCookie('colorTheme');
-    return (COLOR_THEMES as string[]).includes(saved ?? '') ? (saved as ColorTheme) : 'blue';
+    return (COLOR_THEMES as string[]).includes(saved ?? '') ? (saved as ColorTheme) : 'arctic';
   });
 
   // Resolve theme from mode (+ time tick for auto)
