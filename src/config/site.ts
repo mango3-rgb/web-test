@@ -55,6 +55,10 @@ const site: SiteConfig = {
       labelKey: 'site.nav.fortune',
       path: '/fortune',
       activePath: '/fortune',
+      dropdown: [
+        { path: '/fortune', labelKey: 'site.nav.fortuneReading' },
+        { path: '/taro', labelKey: 'site.nav.taro' },
+      ]
     },
     {
       labelKey: 'site.nav.saju',
