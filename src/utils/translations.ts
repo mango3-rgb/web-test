@@ -224,6 +224,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         fortune: '나의 운세',
         fortuneReading: '운세 보기',
         taro: '타로카드',
+        bloodtypeMbti: '혈액형+MBTI',
         enneagramTest: '에니어그램 테스트',
         comboTest: '통합 성격 테스트',
         mbtiEnneagram: 'MBTI+에니어그램'
@@ -461,6 +462,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         fortune: 'My Fortune',
         fortuneReading: 'Fortune',
         taro: 'Tarot Cards',
+        bloodtypeMbti: 'Blood Type + MBTI',
         enneagramTest: 'Enneagram Test',
         comboTest: 'Integrated Personality Test',
         mbtiEnneagram: 'MBTI+Enneagram'

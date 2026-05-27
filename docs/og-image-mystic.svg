@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1B2A4A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d1b4e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F0D080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C9A84C;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles (background orbs) -->
+  <circle cx="100" cy="80" r="180" fill="#C9A84C" opacity="0.04"/>
+  <circle cx="1100" cy="550" r="220" fill="#5B2C8B" opacity="0.12"/>
+  <circle cx="1050" cy="100" r="150" fill="#C8102E" opacity="0.06"/>
+  <circle cx="200" cy="500" r="160" fill="#1B5C8B" opacity="0.1"/>
+
+  <!-- Top border line -->
+  <rect x="80" y="60" width="120" height="2" fill="url(#goldGrad)" opacity="0.8"/>
+
+  <!-- Stars scattered -->
+  <text x="90" y="130" font-size="18" fill="#C9A84C" opacity="0.6" font-family="serif">✦</text>
+  <text x="1080" y="200" font-size="14" fill="#C9A84C" opacity="0.5" font-family="serif">✦</text>
+  <text x="980" y="520" font-size="22" fill="#C9A84C" opacity="0.4" font-family="serif">✦</text>
+  <text x="150" y="420" font-size="12" fill="#C9A84C" opacity="0.4" font-family="serif">✦</text>
+  <text x="600" y="90" font-size="10" fill="#C9A84C" opacity="0.3" font-family="serif">✦</text>
+  <text x="850" y="580" font-size="16" fill="#C9A84C" opacity="0.35" font-family="serif">✦</text>
+
+  <!-- Central symbol -->
+  <text x="600" y="250" font-size="72" fill="url(#goldGrad)" text-anchor="middle" font-family="serif" opacity="0.85" filter="url(#glow)">✦</text>
+
+  <!-- Main title: Suyoung's Secret -->
+  <text x="600" y="360" font-size="82" font-weight="900" fill="#FFFFFF" text-anchor="middle"
+        font-family="'Georgia', 'Times New Roman', serif" letter-spacing="-2">Suyoung's</text>
+  <text x="600" y="455" font-size="82" font-weight="900" fill="url(#goldGrad)" text-anchor="middle"
+        font-family="'Georgia', 'Times New Roman', serif" letter-spacing="-2" filter="url(#glow)">Secret</text>
+
+  <!-- Divider line -->
+  <rect x="440" y="478" width="320" height="1.5" fill="url(#goldGrad)" opacity="0.6"/>
+
+  <!-- Subtitle tags -->
+  <text x="600" y="520" font-size="22" fill="#FFFFFF" text-anchor="middle"
+        font-family="'Noto Sans KR', sans-serif" opacity="0.75" letter-spacing="4">
+    사주 · 별자리 · MBTI · 타로카드
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="562" font-size="16" fill="#C9A84C" text-anchor="middle"
+        font-family="'Noto Sans KR', sans-serif" opacity="0.7" letter-spacing="2">
+    당신의 운명과 성격을 깊이 탐구합니다
+  </text>
+
+  <!-- URL bottom right -->
+  <text x="1120" y="600" font-size="13" fill="#FFFFFF" text-anchor="end"
+        font-family="'Courier New', monospace" opacity="0.35">
+    mango3-rgb.github.io/web-test
+  </text>
+</svg>

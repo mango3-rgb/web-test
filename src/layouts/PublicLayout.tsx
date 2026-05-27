@@ -19,6 +19,7 @@ import MbtiTest from '../pages/MbtiTest';
 import FortuneReading from '../pages/FortuneReading';
 import TaroReading from '../pages/TaroReading';
 import EnneagramTest from '../pages/EnneagramTest';
+import BloodTypeMbtiTest from '../pages/BloodTypeMbtiTest';
 import PersonalityComboTest from '../pages/PersonalityComboTest';
 import AdminPage from '../pages/AdminPage';
 
@@ -46,6 +47,7 @@ const PublicLayout = (): ReactElement => (
         <Route path="/board/discussion" element={<DiscussionBoard />} />
 
         <Route path="/mbti/test" element={<MbtiTest />} />
+        <Route path="/mbti/bloodtype" element={<BloodTypeMbtiTest />} />
         <Route path="/mbti/enneagram-test" element={<EnneagramTest />} />
         <Route path="/mbti/enneagram" element={<PersonalityComboTest />} />
 
