@@ -22,6 +22,11 @@ import EnneagramTest from '../pages/EnneagramTest';
 import BloodTypeMbtiTest from '../pages/BloodTypeMbtiTest';
 import PersonalityComboTest from '../pages/PersonalityComboTest';
 import AdminPage from '../pages/AdminPage';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import ForgotPassword from '../pages/ForgotPassword';
+import MyPage from '../pages/MyPage';
+import OrderHistory from '../pages/OrderHistory';
 
 const PublicLayout = (): ReactElement => (
   <>
@@ -53,6 +58,12 @@ const PublicLayout = (): ReactElement => (
 
         <Route path="/fortune" element={<FortuneReading />} />
         <Route path="/taro" element={<TaroReading />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/orders" element={<OrderHistory />} />
 
         <Route path="/admin" element={<AdminPage />} />
 

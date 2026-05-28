@@ -38,7 +38,7 @@ const site: SiteConfig = {
     shop: false,
     community: true,
     search: false,
-    auth: false,
+    auth: true,
     license: false,
   },
 
