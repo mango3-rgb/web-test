@@ -359,6 +359,13 @@ const TaroReading = (): ReactElement => {
               <p className="taro-instruction">
                 마음을 가라앉히고 집중하세요. 카드를 직접 클릭하거나 한 번에 뽑을 수 있습니다.
               </p>
+              <button
+                className="taro-draw-btn"
+                onClick={revealAll}
+                disabled={flipping !== null}
+              >
+                {flipping ? '카드를 뽑는 중...' : '✨ 4장 한번에 뽑기'}
+              </button>
               <div className="taro-area-grid">
                 {AREAS.map((a, i) => (
                   <AreaCard
@@ -371,13 +378,6 @@ const TaroReading = (): ReactElement => {
                   />
                 ))}
               </div>
-              <button
-                className="taro-draw-btn"
-                onClick={revealAll}
-                disabled={flipping !== null}
-              >
-                {flipping ? '카드를 뽑는 중...' : '✨ 4장 한번에 뽑기'}
-              </button>
             </div>
           )}
 

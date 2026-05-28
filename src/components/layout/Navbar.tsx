@@ -158,8 +158,8 @@ const Navbar = (): ReactElement => {
                       <div className="color-picker-arrow" />
                       <div className="theme-picker-label">테마 선택</div>
                       {[
-                        { name: 'arctic' as const, icon: '🌌', label: '북극 밤하늘', desc: '차갑고 신비로운 심우주' },
-                        { name: 'autumn' as const, icon: '🍂', label: '가을 굿판', desc: '전통의 불꽃과 대지의 숨결' },
+                        { name: 'arctic' as const, icon: '🌌', label: '북극' },
+                        { name: 'autumn' as const, icon: '🍂', label: '가을' },
                       ].map((t) => (
                         <button
                           key={t.name}
@@ -167,10 +167,7 @@ const Navbar = (): ReactElement => {
                           onClick={() => { setColorTheme(t.name); setShowColorPicker(false); }}
                         >
                           <span className="theme-card-icon">{t.icon}</span>
-                          <span className="theme-card-info">
-                            <span className="theme-card-name">{t.label}</span>
-                            <span className="theme-card-desc">{t.desc}</span>
-                          </span>
+                          <span className="theme-card-name">{t.label}</span>
                           {colorTheme === t.name && <span className="theme-card-check">✓</span>}
                         </button>
                       ))}
