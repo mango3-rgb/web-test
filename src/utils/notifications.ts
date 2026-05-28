@@ -118,8 +118,8 @@ export function buildEmailHtml(params: {
   const {
     title,
     body,
-    siteName = 'DreamIT',
-    siteUrl = 'https://www.dreamitbiz.com',
+    siteName = "Suyoung's Secret",
+    siteUrl = 'https://mango3-rgb.github.io/web-test',
     primaryColor = '#106bb5',
   } = params;
 
@@ -150,8 +150,8 @@ export function buildEmailHtml(params: {
         <!-- 푸터 -->
         <tr>
           <td style="padding:20px 32px;background:#f9f9f9;border-top:1px solid #eee;font-size:12px;color:#999;text-align:center;">
-            본 메일은 발신 전용입니다. 문의: <a href="mailto:admin@dreamitbiz.com" style="color:${primaryColor};">admin@dreamitbiz.com</a><br>
-            © ${new Date().getFullYear()} DreamIT. All rights reserved.
+            본 메일은 발신 전용입니다. 문의: <a href="mailto:mango3_sy@kdn.com" style="color:${primaryColor};">mango3_sy@kdn.com</a><br>
+            © ${new Date().getFullYear()} Suyoung's Secret. All rights reserved.
           </td>
         </tr>
       </table>

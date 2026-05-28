@@ -17,7 +17,7 @@ const SYSTEM_PROMPT = `당신은 사주팔자, 별자리(서양점성술), MBTI 
 항상 한국어로 답변하고, 공감적이고 긍정적인 톤을 유지하세요.
 개인정보(이름, 연락처 등)는 요청하지 마세요.`;
 
-const WELCOME = `안녕하세요! 🌟 Suyoung's Secret AI 상담사입니다.
+const WELCOME = `안녕하세요! 🌟 Suyoung's Secret 상담사입니다.
 
 사주팔자, 별자리, MBTI, 타로에 대해 무엇이든 물어보세요.
 
@@ -87,12 +87,12 @@ const ConsultChat = (): ReactElement => {
 
   return (
     <>
-      <SEOHead title="AI 상담 | Suyoung's Secret" description="사주·별자리·MBTI AI 상담 챗봇" noindex />
+      <SEOHead title="상담 | Suyoung's Secret" description="사주·별자리·MBTI 상담 챗봇" noindex />
       <section className="page-header-ed">
         <div className="container">
-          <div className="eyebrow">AI Consultation · 상담</div>
-          <h2>AI 운세 상담</h2>
-          <p>사주·별자리·MBTI 전문 AI 상담사와 대화해보세요</p>
+          <div className="eyebrow">Consultation · 상담</div>
+          <h2>운세 상담</h2>
+          <p>사주·별자리·MBTI 전문 상담사와 대화해보세요</p>
         </div>
       </section>
 

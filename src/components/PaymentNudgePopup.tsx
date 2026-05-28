@@ -42,7 +42,7 @@ interface PaymentNudgePopupProps {
 export default function PaymentNudgePopup({
   user,
   siteSlug,
-  shopUrl = 'https://biz-hub.dreamitbiz.com/shop',
+  shopUrl = 'https://mango3-rgb.github.io/web-test',
 }: PaymentNudgePopupProps) {
   const [visible, setVisible] = useState(false);
 

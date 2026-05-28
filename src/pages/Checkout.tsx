@@ -128,8 +128,8 @@ const Checkout = (): ReactElement | null => {
       // 2. Request payment via PortOne
       const itemCount = cartCount;
       const orderName = isEn
-        ? `DreamIT Biz - ${itemCount} item${itemCount > 1 ? 's' : ''}`
-        : `DreamIT Biz 상품 ${itemCount}건`;
+        ? `Suyoung's Secret - ${itemCount} item${itemCount > 1 ? 's' : ''}`
+        : `Suyoung's Secret 상품 ${itemCount}건`;
 
       const paymentResult = await requestPayment({
         orderId: orderId,
