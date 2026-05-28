@@ -2,7 +2,7 @@ import { useState, type ReactElement, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
-import { signUp } from '../utils/auth';
+import { signUp, translateAuthError } from '../utils/auth';
 import SEOHead from '../components/SEOHead';
 import '../styles/auth.css';
 
@@ -37,7 +37,7 @@ const Register = (): ReactElement | null => {
       await signUp(form.email, form.password, form.displayName);
       setSuccess(true);
     } catch (err) {
-      setError((err as Error).message || t('auth.signUpError'));
+      setError(translateAuthError((err as Error).message) || t('auth.signUpError'));
     } finally {
       setLoading(false);
     }

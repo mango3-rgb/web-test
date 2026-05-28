@@ -467,7 +467,7 @@ const AdminPage = (): ReactElement => {
           {/* API Key setup guide */}
           <div style={styles.guideCard}>
             <h3 style={{ ...styles.cardTitle, marginBottom: 12 }}>
-              ANTHROPIC_API_KEY 설정 안내
+              OPENAI_API_KEY 설정 안내
             </h3>
             <ol style={styles.guideList}>
               <li>
@@ -488,11 +488,11 @@ const AdminPage = (): ReactElement => {
                 <strong>Add new secret</strong> 버튼을 클릭합니다.
               </li>
               <li>
-                <strong>Name</strong>: <code style={styles.code}>ANTHROPIC_API_KEY</code>
+                <strong>Name</strong>: <code style={styles.code}>OPENAI_API_KEY</code>
               </li>
               <li>
-                <strong>Value</strong>: Anthropic Console에서 발급받은 API 키를 붙여넣습니다.
-                (<code style={styles.code}>sk-ant-...</code>)
+                <strong>Value</strong>: OpenAI Platform에서 발급받은 API 키를 붙여넣습니다.
+                (<code style={styles.code}>sk-...</code>)
               </li>
               <li>
                 <strong>Save</strong> 버튼을 눌러 저장합니다.
@@ -504,12 +504,12 @@ const AdminPage = (): ReactElement => {
             <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 12 }}>
               API 키는{' '}
               <a
-                href="https://console.anthropic.com/settings/keys"
+                href="https://platform.openai.com/api-keys"
                 target="_blank"
                 rel="noreferrer"
                 style={styles.guideLink}
               >
-                Anthropic Console
+                OpenAI Platform
               </a>
               에서 발급받을 수 있습니다.
             </p>

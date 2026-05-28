@@ -2,7 +2,7 @@ import { useState, useEffect, type ReactElement, type FormEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
-import { signInWithGoogle, signInWithKakao, signInWithEmail } from '../utils/auth';
+import { signInWithGoogle, signInWithKakao, signInWithEmail, translateAuthError } from '../utils/auth';
 import SEOHead from '../components/SEOHead';
 import '../styles/auth.css';
 
@@ -46,7 +46,7 @@ const Login = (): ReactElement | null => {
       await signInWithEmail(form.email, form.password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError((err as Error).message || t('auth.loginError'));
+      setError(translateAuthError((err as Error).message) || t('auth.loginError'));
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ const Login = (): ReactElement | null => {
       if (provider === 'google') await signInWithGoogle();
       else if (provider === 'kakao') await signInWithKakao();
     } catch (err) {
-      setError((err as Error).message || t('auth.loginError'));
+      setError(translateAuthError((err as Error).message) || t('auth.loginError'));
     }
   };
 

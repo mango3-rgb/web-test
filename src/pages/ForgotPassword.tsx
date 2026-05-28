@@ -1,7 +1,7 @@
 import { useState, type ReactElement, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { resetPassword } from '../utils/auth';
+import { resetPassword, translateAuthError } from '../utils/auth';
 import SEOHead from '../components/SEOHead';
 import '../styles/auth.css';
 
@@ -21,7 +21,7 @@ const ForgotPassword = (): ReactElement => {
       await resetPassword(email);
       setSent(true);
     } catch (err) {
-      setError((err as Error).message || 'Failed to send reset email');
+      setError(translateAuthError((err as Error).message) || '재설정 이메일 전송에 실패했습니다.');
     } finally {
       setLoading(false);
     }
