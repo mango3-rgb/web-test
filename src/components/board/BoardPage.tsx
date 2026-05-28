@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import type { ReactElement, CSSProperties } from 'react';
 import {
   fetchPosts, createPost, incrementView,
   fetchComments, createComment,
 } from '../../utils/boardStorage';
 import type { Post, BoardComment } from '../../utils/boardStorage';
+import { useAuth } from '../../contexts/AuthContext';
 
 export interface BoardConfig {
   board: string;
@@ -32,6 +34,7 @@ const field: CSSProperties = {
 };
 
 const BoardPage = ({ config }: { config: BoardConfig }): ReactElement => {
+  const { isLoggedIn } = useAuth();
   const [view, setView] = useState<View>('list');
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -105,7 +108,11 @@ const BoardPage = ({ config }: { config: BoardConfig }): ReactElement => {
   if (view === 'list') return (
     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-        <button className="btn btn-primary" onClick={() => setView('write')}>글쓰기</button>
+        {isLoggedIn ? (
+          <button className="btn btn-primary" onClick={() => setView('write')}>글쓰기</button>
+        ) : (
+          <Link to="/login" className="btn btn-primary">글쓰기</Link>
+        )}
       </div>
       {loading ? (
         <p style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '40px 0', margin: 0 }}>로딩 중...</p>
@@ -151,7 +158,16 @@ const BoardPage = ({ config }: { config: BoardConfig }): ReactElement => {
   );
 
   /* ── Write ── */
-  if (view === 'write') return (
+  if (view === 'write') {
+    if (!isLoggedIn) return (
+      <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', padding: '60px 24px' }}>
+        <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+          글을 작성하려면 로그인이 필요합니다.
+        </p>
+        <Link to="/login" className="btn btn-primary">로그인하기</Link>
+      </div>
+    );
+    return (
     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
         <button className="btn btn-ghost" onClick={goList}>← 목록</button>
@@ -188,6 +204,7 @@ const BoardPage = ({ config }: { config: BoardConfig }): ReactElement => {
       </div>
     </div>
   );
+  }
 
   /* ── Detail ── */
   if (!post) return <></>;
@@ -223,24 +240,32 @@ const BoardPage = ({ config }: { config: BoardConfig }): ReactElement => {
           </div>
         ))}
         <div style={{ marginTop: '12px' }}>
-          <input
-            style={{ ...field, width: '160px', marginBottom: '6px' }}
-            value={cAuthor} onChange={e => setCAuthor(e.target.value)}
-            placeholder="작성자" />
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
-            <textarea
-              style={{ ...field, resize: 'none', lineHeight: 1.6 }}
-              rows={2}
-              value={cContent} onChange={e => setCContent(e.target.value)}
-              placeholder="댓글을 입력하세요..." />
-            <button
-              className="btn btn-primary"
-              style={{ flexShrink: 0, alignSelf: 'flex-end' }}
-              onClick={submitComment}
-              disabled={!cAuthor.trim() || !cContent.trim() || cSaving}>
-              {cSaving ? '...' : '등록'}
-            </button>
-          </div>
+          {isLoggedIn ? (
+            <>
+              <input
+                style={{ ...field, width: '160px', marginBottom: '6px' }}
+                value={cAuthor} onChange={e => setCAuthor(e.target.value)}
+                placeholder="작성자" />
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
+                <textarea
+                  style={{ ...field, resize: 'none', lineHeight: 1.6 }}
+                  rows={2}
+                  value={cContent} onChange={e => setCContent(e.target.value)}
+                  placeholder="댓글을 입력하세요..." />
+                <button
+                  className="btn btn-primary"
+                  style={{ flexShrink: 0, alignSelf: 'flex-end' }}
+                  onClick={submitComment}
+                  disabled={!cAuthor.trim() || !cContent.trim() || cSaving}>
+                  {cSaving ? '...' : '등록'}
+                </button>
+              </div>
+            </>
+          ) : (
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: 0 }}>
+              댓글을 작성하려면 <Link to="/login" style={{ color: 'var(--gold)', fontWeight: 600 }}>로그인</Link>이 필요합니다.
+            </p>
+          )}
         </div>
       </div>
     </div>

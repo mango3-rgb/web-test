@@ -14,7 +14,6 @@ import MbtiCompatibility from '../pages/MbtiCompatibility';
 import About from '../pages/About';
 import Consult from '../pages/Consult';
 import InquiryBoard from '../pages/InquiryBoard';
-import DiscussionBoard from '../pages/DiscussionBoard';
 import MbtiTest from '../pages/MbtiTest';
 import FortuneReading from '../pages/FortuneReading';
 import TaroReading from '../pages/TaroReading';
@@ -50,7 +49,6 @@ const PublicLayout = (): ReactElement => (
         <Route path="/about/consult" element={<Consult />} />
 
         <Route path="/board/inquiry" element={<InquiryBoard />} />
-        <Route path="/board/discussion" element={<DiscussionBoard />} />
         <Route path="/board/consult" element={<ConsultChat />} />
 
         <Route path="/mbti/test" element={<MbtiTest />} />

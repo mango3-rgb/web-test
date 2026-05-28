@@ -96,7 +96,6 @@ const site: SiteConfig = {
       activePath: '/board',
       dropdown: [
         { path: '/board/inquiry', labelKey: 'site.nav.boardInquiry' },
-        { path: '/board/discussion', labelKey: 'site.nav.boardDiscussion' },
         { path: '/board/consult', labelKey: 'site.nav.boardConsult' },
       ]
     },
