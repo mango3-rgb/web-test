@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SEOHead from '../components/SEOHead';
 import type { ReactElement } from 'react';
+import { saveTestResult } from '../utils/testStorage';
 
 type BloodType = 'A' | 'B' | 'O' | 'AB';
 
@@ -801,6 +802,10 @@ const BloodTypeMbtiTest = (): ReactElement => {
 
   const comboKey = bloodType && mbti ? `${bloodType}-${mbti}` : null;
   const comboDesc = comboKey ? COMBO[comboKey] : null;
+
+  useEffect(() => {
+    if (comboKey) saveTestResult('bloodtype_mbti', comboKey);
+  }, [comboKey]);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SEOHead from '../components/SEOHead';
 import type { ReactElement } from 'react';
+import { saveTestResult } from '../utils/testStorage';
 
 type EnneaType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
@@ -178,8 +179,10 @@ const EnneagramTest = (): ReactElement => {
       if (current + 1 < QUESTIONS.length) {
         setCurrent(current + 1);
       } else {
-        setResult(calcResult(newScores));
+        const enneaResult = calcResult(newScores);
+        setResult(enneaResult);
         setPhase('result');
+        saveTestResult('enneagram', String(enneaResult));
       }
     }, 250);
   };

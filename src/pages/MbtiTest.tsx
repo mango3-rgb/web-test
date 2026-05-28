@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import type { ReactElement } from 'react';
+import { saveTestResult } from '../utils/testStorage';
 
 type Dim = 'EI' | 'SN' | 'TF' | 'JP';
 
@@ -99,6 +100,7 @@ const MbtiTest = (): ReactElement => {
       const mbti = calcResult(newAnswers);
       setResult(mbti);
       setPhase('result');
+      saveTestResult('mbti', mbti);
     }
   };
 

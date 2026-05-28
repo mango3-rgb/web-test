@@ -48,7 +48,7 @@ const AdminPage = (): ReactElement => {
     }
   }, [isAdmin, isLoggedIn, navigate]);
 
-  // — stats —
+  // — fortune stats —
   const [totalCount, setTotalCount] = useState<number | null>(null);
 
   const fetchTotal = useCallback(async () => {
@@ -63,6 +63,60 @@ const AdminPage = (): ReactElement => {
   useEffect(() => {
     fetchTotal();
   }, [fetchTotal]);
+
+  // — visitor & test stats —
+  interface VisitStats { today: number; month: number; total: number }
+  interface TestEntry { result: string; count: number }
+  interface TestStats { mbti: TestEntry[]; enneagram: TestEntry[]; bloodtype_mbti: TestEntry[] }
+
+  const [visitStats, setVisitStats] = useState<VisitStats | null>(null);
+  const [testStats,  setTestStats]  = useState<TestStats | null>(null);
+
+  const fetchVisitorStats = useCallback(async () => {
+    const client = getSupabase();
+    if (!client) return;
+    const now = new Date();
+    const todayStr  = now.toISOString().split('T')[0];
+    const monthStr  = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+
+    const [{ count: total }, { count: month }, { count: today }] = await Promise.all([
+      client.from('mystic_visits').select('*', { count: 'exact', head: true }),
+      client.from('mystic_visits').select('*', { count: 'exact', head: true }).gte('visited_at', monthStr),
+      client.from('mystic_visits').select('*', { count: 'exact', head: true }).gte('visited_at', todayStr),
+    ]);
+    setVisitStats({ today: today ?? 0, month: month ?? 0, total: total ?? 0 });
+  }, []);
+
+  const fetchTestStats = useCallback(async () => {
+    const client = getSupabase();
+    if (!client) return;
+    const { data } = await client
+      .from('mystic_test_results')
+      .select('test_type, result');
+    if (!data) return;
+
+    const group = (type: string): TestEntry[] => {
+      const counts: Record<string, number> = {};
+      data.filter(r => r.test_type === type).forEach(r => {
+        counts[r.result] = (counts[r.result] ?? 0) + 1;
+      });
+      return Object.entries(counts)
+        .map(([result, count]) => ({ result, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+    };
+
+    setTestStats({
+      mbti:          group('mbti'),
+      enneagram:     group('enneagram'),
+      bloodtype_mbti: group('bloodtype_mbti'),
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchVisitorStats();
+    fetchTestStats();
+  }, [fetchVisitorStats, fetchTestStats]);
 
   // — form state —
   const [area,   setArea]   = useState('money');
@@ -216,14 +270,56 @@ const AdminPage = (): ReactElement => {
       <section className="section-ed">
         <div className="container" style={{ maxWidth: 720 }}>
 
-          {/* Stats */}
+          {/* 방문 통계 */}
+          <h3 style={{ ...styles.cardTitle, borderBottom: 'none', marginBottom: 12 }}>방문 현황</h3>
           <div style={styles.statsPanel}>
-            <div style={styles.statItem}>
-              <span style={styles.statNumber}>
-                {totalCount === null ? '…' : totalCount.toLocaleString()}
-              </span>
-              <span style={styles.statLabel}>저장된 운세 텍스트</span>
-            </div>
+            {[
+              { label: '오늘 방문', value: visitStats?.today },
+              { label: '이번 달',  value: visitStats?.month },
+              { label: '전체 방문', value: visitStats?.total },
+              { label: '운세 텍스트', value: totalCount },
+            ].map(({ label, value }) => (
+              <div key={label} style={styles.statItem}>
+                <span style={styles.statNumber}>{value === null || value === undefined ? '…' : value.toLocaleString()}</span>
+                <span style={styles.statLabel}>{label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* 테스트 결과 통계 */}
+          <h3 style={{ ...styles.cardTitle, borderBottom: 'none', marginBottom: 12, marginTop: 8 }}>테스트 결과 현황</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16, marginBottom: 28 }}>
+            {[
+              { key: 'mbti' as const,          label: 'MBTI 테스트' },
+              { key: 'enneagram' as const,      label: '에니어그램' },
+              { key: 'bloodtype_mbti' as const, label: '혈액형+MBTI' },
+            ].map(({ key, label }) => (
+              <div key={key} style={styles.card}>
+                <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 12 }}>{label}</h4>
+                {!testStats ? (
+                  <p style={{ fontSize: 13, color: 'var(--text-light)' }}>…</p>
+                ) : testStats[key].length === 0 ? (
+                  <p style={{ fontSize: 13, color: 'var(--text-light)' }}>데이터 없음</p>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {testStats[key].map(({ result, count }) => {
+                      const max = testStats[key][0].count;
+                      return (
+                        <div key={result}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 3 }}>
+                            <span style={{ fontWeight: 600 }}>{result}</span>
+                            <span style={{ color: 'var(--text-secondary)' }}>{count}명</span>
+                          </div>
+                          <div style={{ height: 6, background: 'var(--navy-100)', borderRadius: 99, overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: `${(count / max) * 100}%`, background: 'var(--gold)', borderRadius: 99 }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* Generation form */}
