@@ -9,8 +9,6 @@ import {
   LUCKY_COLORS_SEED, FORTUNE_CAUTIONS_SEED,
 } from '../data/contentSeedData';
 
-const EDGE_FN_URL =
-  'https://mlesrunnldasvqgqblss.supabase.co/functions/v1/generate-fortune-texts';
 
 const AREAS = [
   { value: 'money',    label: '재물운' },
@@ -235,26 +233,16 @@ const AdminPage = (): ReactElement => {
   const [bulkProgress, setBulkProgress] = useState({ done: 0, total: 0 });
   const [bulkStatus,   setBulkStatus]   = useState<{ ok: boolean; msg: string } | null>(null);
 
-  const getToken = async (): Promise<string | null> => {
-    const client = getSupabase();
-    if (!client) return null;
-    const { data } = await client.auth.getSession();
-    return data.session?.access_token ?? null;
-  };
-
   const callEdgeFn = async (
-    token: string,
     payload: { area: string; period: string; stars: number; count: number }
   ): Promise<{ ok: boolean; inserted?: number; texts?: string[]; error?: string }> => {
-    const res = await fetch(EDGE_FN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload),
+    const client = getSupabase();
+    if (!client) return { ok: false, error: 'Supabase 클라이언트 없음' };
+    const { data, error } = await client.functions.invoke('generate-fortune-texts', {
+      body: payload,
     });
-    return res.json();
+    if (error) return { ok: false, error: error.message };
+    return data;
   };
 
   // — single generation —
@@ -262,15 +250,8 @@ const AdminPage = (): ReactElement => {
     setLoading(true);
     setStatus(null);
 
-    const token = await getToken();
-    if (!token) {
-      setStatus({ ok: false, msg: '로그인 세션을 가져올 수 없습니다.' });
-      setLoading(false);
-      return;
-    }
-
     try {
-      const result = await callEdgeFn(token, { area, period, stars, count });
+      const result = await callEdgeFn({ area, period, stars, count });
 
       if (result.ok) {
         const areaLabel   = AREAS.find(a => a.value === area)?.label   ?? area;
@@ -307,13 +288,6 @@ const AdminPage = (): ReactElement => {
     setBulkRunning(true);
     setBulkStatus(null);
 
-    const token = await getToken();
-    if (!token) {
-      setBulkStatus({ ok: false, msg: '로그인 세션을 가져올 수 없습니다.' });
-      setBulkRunning(false);
-      return;
-    }
-
     const combinations: { area: string; period: string; stars: number }[] = [];
     for (const a of AREAS) {
       for (const p of PERIODS) {
@@ -332,7 +306,7 @@ const AdminPage = (): ReactElement => {
     for (let i = 0; i < combinations.length; i++) {
       const combo = combinations[i];
       try {
-        const result = await callEdgeFn(token, { ...combo, count: 3 });
+        const result = await callEdgeFn({ ...combo, count: 3 });
         if (result.ok) {
           successCount++;
         } else {
