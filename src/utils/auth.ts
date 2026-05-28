@@ -48,6 +48,7 @@ export async function signUp(email: string, password: string, displayName: strin
     email,
     password,
     options: {
+      emailRedirectTo: window.location.origin + import.meta.env.BASE_URL,
       data: {
         full_name: displayName,
         signup_domain: window.location.hostname,
