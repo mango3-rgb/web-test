@@ -69,9 +69,8 @@ const Login = (): ReactElement | null => {
       <div className="auth-center-wrapper">
         <div className="auth-card-google">
           <div className="auth-logo-area">
-            <span className="brand-dream">Dream</span>
-            <span className="brand-it">IT</span>{' '}
-            <span className="brand-biz">Biz</span>
+            <span style={{ color: 'var(--primary)' }}>Suyoung</span>
+            <span style={{ color: 'var(--text-primary)' }}>'s Secret</span>
           </div>
           <h2 className="auth-heading">{t('auth.loginTitle')}</h2>
           <p className="auth-sub">{t('auth.loginSubtitle')}</p>
