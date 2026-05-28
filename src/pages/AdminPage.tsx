@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import SEOHead from '../components/SEOHead';
 import getSupabase from '../utils/supabase';
+import {
+  TAROT_SEED, ENNEAGRAM_QUESTIONS_SEED, ENNEAGRAM_TYPES_SEED,
+  HOROSCOPE_SIGNS_SEED, FORTUNE_JIJI_SEED, FORTUNE_MBTI_SEED,
+  LUCKY_COLORS_SEED, FORTUNE_CAUTIONS_SEED,
+} from '../data/contentSeedData';
 
 const EDGE_FN_URL =
   'https://mlesrunnldasvqgqblss.supabase.co/functions/v1/generate-fortune-texts';
@@ -128,6 +133,102 @@ const AdminPage = (): ReactElement => {
   const [loading,  setLoading]  = useState(false);
   const [status,   setStatus]   = useState<{ ok: boolean; msg: string } | null>(null);
   const [log,      setLog]      = useState<LogEntry[]>([]);
+
+  // — content seed state —
+  type SeedKey = 'tarot_cards'|'enneagram_questions'|'enneagram_types'|'horoscope_signs'|'fortune_jiji'|'fortune_mbti_types'|'fortune_lucky_colors'|'fortune_cautions';
+  const SEED_TABLES: { key: SeedKey; label: string }[] = [
+    { key: 'tarot_cards',          label: '타로카드 (22장)' },
+    { key: 'enneagram_questions',  label: '에니어그램 질문 (18문항)' },
+    { key: 'enneagram_types',      label: '에니어그램 유형 (9가지)' },
+    { key: 'horoscope_signs',      label: '별자리 기본정보 (12개)' },
+    { key: 'fortune_jiji',         label: '띠 / 지지 (12개)' },
+    { key: 'fortune_mbti_types',   label: 'MBTI 유형 (16개)' },
+    { key: 'fortune_lucky_colors', label: '행운의 색 (12개)' },
+    { key: 'fortune_cautions',     label: '주의사항 (16개)' },
+  ];
+  const [contentCounts,  setContentCounts]  = useState<Partial<Record<SeedKey, number>>>({});
+  const [seedLoading,    setSeedLoading]    = useState<Partial<Record<SeedKey, boolean>>>({});
+  const [seedStatus,     setSeedStatus]     = useState<Partial<Record<SeedKey, { ok: boolean; msg: string }>>>({});
+  const [allSeedLoading, setAllSeedLoading] = useState(false);
+
+  const fetchContentCounts = useCallback(async () => {
+    const client = getSupabase();
+    if (!client) return;
+    const results = await Promise.all(
+      SEED_TABLES.map(t => client.from(t.key).select('*', { count: 'exact', head: true }))
+    );
+    const counts: Partial<Record<SeedKey, number>> = {};
+    SEED_TABLES.forEach((t, i) => { counts[t.key] = results[i].count ?? 0; });
+    setContentCounts(counts);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => { fetchContentCounts(); }, [fetchContentCounts]);
+
+  const seedTable = async (key: SeedKey) => {
+    const client = getSupabase();
+    if (!client) return;
+    setSeedLoading(prev => ({ ...prev, [key]: true }));
+    setSeedStatus(prev => ({ ...prev, [key]: null as unknown as { ok: boolean; msg: string } }));
+
+    try {
+      let error: unknown = null;
+
+      if (key === 'fortune_lucky_colors' || key === 'fortune_cautions') {
+        // SMALLSERIAL 테이블: 전체 삭제 후 재삽입
+        const { error: delErr } = await client.from(key).delete().gte('id', 0);
+        if (delErr) throw delErr;
+        if (key === 'fortune_lucky_colors') {
+          const { error: insErr } = await client.from('fortune_lucky_colors').insert(LUCKY_COLORS_SEED);
+          error = insErr;
+        } else {
+          const { error: insErr } = await client.from('fortune_cautions').insert(FORTUNE_CAUTIONS_SEED);
+          error = insErr;
+        }
+      } else {
+        const dataMap: Record<SeedKey, unknown[]> = {
+          tarot_cards:          TAROT_SEED,
+          enneagram_questions:  ENNEAGRAM_QUESTIONS_SEED,
+          enneagram_types:      ENNEAGRAM_TYPES_SEED,
+          horoscope_signs:      HOROSCOPE_SIGNS_SEED,
+          fortune_jiji:         FORTUNE_JIJI_SEED,
+          fortune_mbti_types:   FORTUNE_MBTI_SEED,
+          fortune_lucky_colors: LUCKY_COLORS_SEED,
+          fortune_cautions:     FORTUNE_CAUTIONS_SEED,
+        };
+        const conflictMap: Record<SeedKey, string> = {
+          tarot_cards:          'id',
+          enneagram_questions:  'id',
+          enneagram_types:      'type_no',
+          horoscope_signs:      'id',
+          fortune_jiji:         'id',
+          fortune_mbti_types:   'id',
+          fortune_lucky_colors: 'id',
+          fortune_cautions:     'id',
+        };
+        const { error: upsertErr } = await (client.from(key) as ReturnType<typeof client.from>)
+          .upsert(dataMap[key] as object[], { onConflict: conflictMap[key] });
+        error = upsertErr;
+      }
+
+      if (error) throw error;
+      setSeedStatus(prev => ({ ...prev, [key]: { ok: true, msg: '이식 완료' } }));
+      await fetchContentCounts();
+    } catch (err) {
+      const msg = (err as { message?: string })?.message ?? '오류 발생';
+      setSeedStatus(prev => ({ ...prev, [key]: { ok: false, msg } }));
+    } finally {
+      setSeedLoading(prev => ({ ...prev, [key]: false }));
+    }
+  };
+
+  const seedAllContent = async () => {
+    setAllSeedLoading(true);
+    for (const t of SEED_TABLES) {
+      await seedTable(t.key);
+    }
+    setAllSeedLoading(false);
+  };
 
   // — bulk state —
   const [bulkRunning,  setBulkRunning]  = useState(false);
@@ -462,6 +563,63 @@ const AdminPage = (): ReactElement => {
                 {bulkStatus.ok ? '✓ ' : '✗ '}{bulkStatus.msg}
               </p>
             )}
+          </div>
+
+          {/* 콘텐츠 DB 이식 */}
+          <div style={styles.card}>
+            <h3 style={styles.cardTitle}>콘텐츠 DB 이식</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 16 }}>
+              신규 콘텐츠 테이블에 현행 데이터를 이식합니다.
+              Supabase SQL Editor에서 <code style={styles.code}>scripts/create_content_tables.sql</code>을 먼저 실행해야 합니다.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+              {SEED_TABLES.map(t => {
+                const count   = contentCounts[t.key];
+                const loading = seedLoading[t.key];
+                const status  = seedStatus[t.key];
+                return (
+                  <div key={t.key} style={{
+                    display: 'grid', gridTemplateColumns: '1fr 60px 80px 90px',
+                    gap: 10, alignItems: 'center',
+                    padding: '10px 14px', background: 'var(--navy-50)',
+                    border: '1px solid var(--line)', borderRadius: 8, fontSize: 13,
+                  }}>
+                    <span style={{ fontWeight: 600 }}>{t.label}</span>
+                    <span style={{ color: 'var(--text-secondary)', textAlign: 'right' }}>
+                      {count === undefined ? '…' : `${count}행`}
+                    </span>
+                    <span style={{
+                      fontSize: 12, fontWeight: 600,
+                      color: status?.ok === true ? '#16a34a' : status?.ok === false ? '#dc2626' : 'transparent',
+                    }}>
+                      {status ? (status.ok ? '✓ 완료' : `✗ ${status.msg.slice(0, 10)}`) : '·'}
+                    </span>
+                    <button
+                      onClick={() => seedTable(t.key)}
+                      disabled={loading || allSeedLoading}
+                      style={{
+                        padding: '5px 10px', fontSize: 12, fontWeight: 600,
+                        border: '1px solid var(--line)', borderRadius: 6,
+                        background: loading ? 'var(--line)' : 'var(--bg-white)',
+                        cursor: loading ? 'default' : 'pointer',
+                        color: 'var(--navy-800)',
+                      }}
+                    >
+                      {loading ? '이식 중…' : '이식하기'}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              className="btn btn-ghost"
+              onClick={seedAllContent}
+              disabled={allSeedLoading}
+            >
+              {allSeedLoading ? '전체 이식 중…' : '전체 이식'}
+            </button>
           </div>
 
           {/* API Key setup guide */}
