@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, useCallback, type React
 import type { User } from '@supabase/supabase-js';
 import getSupabase from '../utils/supabase';
 import { getProfile, updateProfile, signOut as authSignOut } from '../utils/auth';
-import { ADMIN_EMAILS } from '../config/admin';
 import type { UserProfile, AccountBlock } from '../types';
 import { useIdleTimeout } from '../hooks/useIdleTimeout';
 import ProfileCompleteModal from '../components/ProfileCompleteModal';
@@ -161,13 +160,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): ReactElement => {
     if (user) await loadProfile(user);
   }, [user, loadProfile]);
 
-  const allEmails = [
-    user?.email,
-    user?.user_metadata?.email as string | undefined,
-    (user?.identities?.[0]?.identity_data as Record<string, unknown> | undefined)?.email as string | undefined,
-    profile?.email,
-  ].filter((e): e is string => Boolean(e)).map((e) => e.toLowerCase());
-  const isAdmin = allEmails.some((e) => ADMIN_EMAILS.includes(e));
+  const isAdmin = profile?.role === 'admin';
   const isLoggedIn = !!user;
   const needsProfileCompletion = isLoggedIn && !!profile && !profile.name;
 

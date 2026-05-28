@@ -38,15 +38,15 @@ interface LogEntry {
 }
 
 const AdminPage = (): ReactElement => {
-  const { isAdmin, isLoggedIn } = useAuth();
+  const { isAdmin, isLoggedIn, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   // — redirect —
   useEffect(() => {
-    if (!isLoggedIn || !isAdmin) {
+    if (!authLoading && (!isLoggedIn || !isAdmin)) {
       navigate('/');
     }
-  }, [isAdmin, isLoggedIn, navigate]);
+  }, [isAdmin, isLoggedIn, authLoading, navigate]);
 
   // — fortune stats —
   const [totalCount, setTotalCount] = useState<number | null>(null);
@@ -252,7 +252,7 @@ const AdminPage = (): ReactElement => {
   };
 
   // — early return after hooks (redirect will fire) —
-  if (!isAdmin) return <></>;
+  if (authLoading || !isAdmin) return <></>;
 
   return (
     <>
