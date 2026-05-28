@@ -307,7 +307,7 @@ const TaroReading = (): ReactElement => {
     money: null, love: null, career: null, health: null,
   });
   const [flipping, setFlipping] = useState<AreaKey | 'all' | null>(null);
-  const [seed, setSeed] = useState<string>(() => new Date().toISOString().slice(0, 10));
+  const [seed, setSeed] = useState<string>(() => Date.now().toString());
   const allDrawn = AREAS.every(a => drawn[a.key] !== null);
 
   const revealArea = useCallback((key: AreaKey) => {
