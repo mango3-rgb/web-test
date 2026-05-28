@@ -1,1 +1,1 @@
-export const ADMIN_EMAILS: string[] = ['aebon@kakao.com', 'radical8566@gmail.com', 'aebon@kyonggi.ac.kr', 'mango3_sy@kdn.com', 'mango3migz2@gmail.com'];
+export const ADMIN_EMAILS: string[] = ['mango3migz2@gmail.com'];
