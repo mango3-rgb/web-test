@@ -22,6 +22,7 @@ import EnneagramTest from '../pages/EnneagramTest';
 import BloodTypeMbtiTest from '../pages/BloodTypeMbtiTest';
 import PersonalityComboTest from '../pages/PersonalityComboTest';
 import AdminPage from '../pages/AdminPage';
+import ConsultChat from '../pages/ConsultChat';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import ForgotPassword from '../pages/ForgotPassword';
@@ -50,6 +51,7 @@ const PublicLayout = (): ReactElement => (
 
         <Route path="/board/inquiry" element={<InquiryBoard />} />
         <Route path="/board/discussion" element={<DiscussionBoard />} />
+        <Route path="/board/consult" element={<ConsultChat />} />
 
         <Route path="/mbti/test" element={<MbtiTest />} />
         <Route path="/mbti/bloodtype" element={<BloodTypeMbtiTest />} />
