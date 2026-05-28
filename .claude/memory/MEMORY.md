@@ -1,3 +1,4 @@
 - [게시판 개설 예정](project_board_plan.md) — 문의/토론 게시판 준비중 페이지 구현됨, 추후 오픈 예정
 - [web-test 차후 개발 예정 페이지](project_webtest_future.md) — 강의/쇼핑/결제/회원 등 파일 존재하나 라우팅 미연결, 2차 개발 예정
-- [web-test 현재 구현 현황](project_webtest_status.md) — OAuth/챗봇/테스트저장/관리자통계 완료, DB에러 미해결 이슈 포함
+- [web-test 현재 구현 현황](project_webtest_status.md) — OAuth/챗봇/테스트저장/관리자통계/콘텐츠테이블 완료, Edge Function 호출 방식 등 기술 이슈 포함
+- [TO_DO 리스트](project_todo.md) — API키 관리/콘텐츠DB전환/게시판오픈/쇼핑결제/강의 등 차후 개발 항목
